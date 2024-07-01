@@ -57,11 +57,11 @@ const dataAnal = data => {
 
   if (found.isCorrect) {
     document.querySelector('.clicked').style.backgroundColor = 'green';
-    cardDescription.classList.add('correct_card_description');
+    // cardDescription.classList.add('correct_card_description');
     score++;
   } else {
     document.querySelector('.clicked').style.backgroundColor = 'red';
-    cardDescription.classList.add('incorrect_card_description');
+    // cardDescription.classList.add('incorrect_card_description');
   }
 };
 
