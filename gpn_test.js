@@ -2,10 +2,19 @@
 
 export const startData = {
   testHeader: 'ПРИОДЕНЬСЯ!',
-  startImage: './ImageSources/default_man.png',
+  startImage:
+    'https://obzor.city/data/images/news_2024/07/gpn_test/naked_man.png',
+
+  wears: [
+    'https://obzor.city/data/images/news_2024/07/gpn_test/man_hat.png',
+    'https://obzor.city/data/images/news_2024/07/gpn_test/man_shoes.png',
+    'https://obzor.city/data/images/news_2024/07/gpn_test/man_kurtka.png',
+    'https://obzor.city/data/images/news_2024/07/gpn_test/man_glasses.png',
+  ],
+
   testDescription:
     'Безопасность на производстве – это краеугольный камень, техника безопасности пишется кровью, и одна из важнейших её частей — это правильно подобранная спецодежда. На примере экипировки сотрудников «Газпромнефть-Востока» предлагаем вам попробовать себя в роли специалиста по технике безопасности и правильно приодеть специалиста и специалистку. ',
-};
+}
 
 export const restults = [
   {
@@ -29,13 +38,13 @@ export const restults = [
     resultImage:
       'https://obzor.city/data/images/news_2024/06/shalay/dsc_6927_1.jpg',
   },
-];
+]
 
 const testData = [
   {
     questionText: 'Что ему стоит надеть?',
     imageSource:
-      'https://obzor.city/data/images/news_2024/06/kvartaly/087_resul0.jpg',
+      'https://obzor.city/data/images/news_2024/07/gpn_test/naked_man.png',
     cardDescription:
       'Представьте себе жаркий летний день. Вашему сотруднику предстоит заняться погрузкой на вилочном погрузчике. Ввозить и вывозить.',
     answers: [
@@ -142,6 +151,6 @@ const testData = [
       },
     ],
   },
-];
+]
 
-export default testData;
+export default testData
