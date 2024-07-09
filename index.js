@@ -10,39 +10,55 @@ const questionText = document.querySelector('.question_text')
 const answerText = document.createElement('div')
 answerText.classList.add('answer_text')
 
+let previewNode = document.createElement('img')
+previewNode.style.position = 'absolute'
+
 const nexQuestionButton = document.querySelector('.next_question')
+
+// Одеваем человека для каждого отдельного экрана
+const suitUp = (asset, isBase = false) => {
+  if (asset) {
+    let wearAsset = document.createElement('img')
+    let elClassName = asset.toString().split('/')
+    elClassName = elClassName[elClassName.length - 1].split('.')[0]
+    wearAsset.classList.add(`${elClassName}`)
+    wearAsset.src = asset
+    isBase
+      ? (wearAsset.style.position = 'relative')
+      : (wearAsset.style.position = 'absolute')
+    imgWrapper.appendChild(wearAsset)
+  } else {
+    console.log('Nothing')
+  }
+}
+
+//Подчищаем картинки
+const cleaner = () => {
+  let imagesTodDelete = imgWrapper.querySelectorAll('img')
+  imagesTodDelete.forEach((el) => {
+    if (el.src != imagesTodDelete[0].src) {
+      el.remove()
+    }
+  })
+
+  imgWrapper.querySelector('img').src = ''
+}
 
 let counter = 0
 let score = 0
 let testFinished = false
+let answerClicked = false
+const funMan = document.createElement('img')
+funMan.src =
+  'https://obzor.city/data/images/news_2024/07/gpn_test/naked_man_fun.png'
 
+// Рисуем стартовый экран
 const startScreen = () => {
-  //Происходит одевание
-  imgWrapper.querySelector('img').src = startData.startImage
-
-  let manHat = document.createElement('img')
-  manHat.classList.add('man_hat')
-  manHat.src = startData.wears[0]
-  manHat.style.position = 'absolute'
-  imgWrapper.appendChild(manHat)
-
-  let manGlasses = document.createElement('img')
-  manGlasses.classList.add('man_glasses')
-  manGlasses.src = startData.wears[3]
-  manGlasses.style.position = 'absolute'
-  imgWrapper.appendChild(manGlasses)
-
-  let manShoes = document.createElement('img')
-  manShoes.classList.add('man_shoes')
-  manShoes.src = startData.wears[1]
-  manShoes.style.position = 'absolute'
-  imgWrapper.appendChild(manShoes)
-
-  let manKurtka = document.createElement('img')
-  manKurtka.classList.add('man_kurtka')
-  manKurtka.src = startData.wears[2]
-  manKurtka.style.position = 'absolute'
-  imgWrapper.appendChild(manKurtka)
+  for (let i in startData.imageSource) {
+    i !== 'base'
+      ? suitUp(startData.imageSource[i])
+      : suitUp(startData.imageSource[i], true)
+  }
 
   document.querySelector('.font_counter').textContent = startData.testHeader
   cardDescription.textContent = startData.testDescription
@@ -55,11 +71,7 @@ startTestButton.onclick = () => {
   cardDescription.style.display = 'flex'
   document.querySelector('.button_wrapper').style.display = 'block'
   nexQuestionButton.style.display = 'flex'
-
-  document.querySelector('.man_hat').remove()
-  document.querySelector('.man_glasses').remove()
-  document.querySelector('.man_shoes').remove()
-  document.querySelector('.man_kurtka').remove()
+  cleaner()
 
   createPage(counter)
 }
@@ -85,14 +97,30 @@ nexQuestionButton.onclick = () => {
 const dataAnal = (data) => {
   const found = testData[counter].answers.find((el) => el.answerText === data)
   cardDescription.textContent = found.aftershok
+  console.log(found.questionAsset)
+  suitUp(found.questionAsset)
 
   if (found.isCorrect) {
     document.querySelector('.clicked').style.backgroundColor = 'green'
     // cardDescription.classList.add('correct_card_description');
+    imgWrapper.querySelectorAll('img')[1].replaceWith(funMan)
+
     score++
   } else {
     document.querySelector('.clicked').style.backgroundColor = 'red'
     // cardDescription.classList.add('incorrect_card_description');
+  }
+}
+
+//TEST
+
+const hoverAnal = (event) => {
+  if (!answerClicked) {
+    const found = testData[counter].answers.find(
+      (el) => el.answerText === event.target.textContent
+    )
+    previewNode.src = found.questionAsset
+    imgWrapper.appendChild(previewNode)
   }
 }
 
@@ -118,13 +146,23 @@ const goToNextQuestion = () => {
   document.querySelector('.answer_text').remove()
   const inactiveElements = document.querySelectorAll('.inactive')
   inactiveElements.forEach((el) => el.remove())
+  cleaner()
 
   createPage((counter += 1))
 }
 
 const createPage = (id) => {
   if (id < testData.length) {
-    imgWrapper.querySelector('img').src = testData[id].imageSource
+    answerClicked = false
+    // imgWrapper.querySelector('img').src = testData[id].imageSource.base
+    for (let i in testData[id].imageSource) {
+      if (testData[id].imageSource[i].length > 0) {
+        i == 'base'
+          ? suitUp(testData[id].imageSource[i], true)
+          : suitUp(testData[id].imageSource[i])
+      }
+    }
+
     cardDescription.textContent = testData[id].cardDescription
     questionText.textContent = testData[id].questionText
     cardCounter.textContent = `Вопрос №${counter + 1}`
@@ -133,8 +171,12 @@ const createPage = (id) => {
       let newAnswer = answerText.cloneNode(true)
       newAnswer.textContent = testData[id].answers[i].answerText
       questionText.parentNode.appendChild(newAnswer)
+
+      newAnswer.addEventListener('mouseover', (e) => hoverAnal(e))
+
       newAnswer.onclick = (e) => {
         clickedAnswers(e)
+        answerClicked = true
       }
     }
   } else {
@@ -199,4 +241,5 @@ const fontDecor = (decorationSpeed) => {
   minInt
 }
 
+//Launch zone
 startScreen()
