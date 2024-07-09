@@ -19,6 +19,7 @@ let testFinished = false
 const startScreen = () => {
   //Происходит одевание
   imgWrapper.querySelector('img').src = startData.startImage
+  console.log('first')
 
   let manHat = document.createElement('img')
   manHat.classList.add('man_hat')
