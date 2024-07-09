@@ -13,7 +13,61 @@ answerText.classList.add('answer_text')
 let previewNode = document.createElement('img')
 previewNode.style.position = 'absolute'
 
+let scaler = document.createElement('div')
+scaler.classList.add('scaler')
+
 const nexQuestionButton = document.querySelector('.next_question')
+
+//Определяем, с чего мы смотрим сайт
+let deviceType = ''
+
+const testDevice = () => {
+  if (
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|BB|PlayBook|IEMobile|Windows Phone|Kindle|Silk|Opera Mini/i.test(
+      navigator.userAgent
+    )
+  ) {
+    deviceType = 'mobile'
+  } else deviceType = 'desktop'
+}
+
+//Данные для определения длинного тапа
+let longTap = false
+let timerStarted = false
+let tapTime = 0
+
+//Делаем таймер
+
+const tapTimer = (event) => {
+  const startTimer = setInterval(() => {
+    if (!timerStarted) {
+      clearInterval(startTimer)
+      if (!answerClicked) {
+        document
+          .querySelectorAll('.answer_text')
+          .forEach((el) =>
+            el.classList.value.includes('scaling')
+              ? el.classList.remove('scaling')
+              : console.log('first')
+          )
+      }
+    } else if (tapTime < 10) {
+      !event.target.classList.value.includes('.scaling')
+        ? event.target.classList.add('scaling')
+        : console.log('first')
+
+      longTap = false
+      tapTime++
+      console.log(tapTime)
+    } else {
+      console.log('Long Tap!')
+      clearInterval(startTimer)
+      longTap = true
+      answerClicked = true
+      clickedAnswers(event)
+    }
+  }, 80)
+}
 
 // Одеваем человека для каждого отдельного экрана
 const suitUp = (asset, isBase = false) => {
@@ -112,16 +166,57 @@ const dataAnal = (data) => {
   }
 }
 
-//TEST
+//TEST - делаем красоту для ПК
 
-const hoverAnal = (event) => {
+const hoverAnalDesktop = (event) => {
   if (!answerClicked) {
+    const found = testData[counter].answers.find(
+      (el) => el.answerText === event.target.textContent
+    )
+
+    previewNode.src = found.questionAsset
+    imgWrapper.appendChild(previewNode)
+  }
+}
+
+//TEST - делаем красоту для мобил
+
+const hoverAnalMobile = (event) => {
+  event.preventDefault()
+  const answersArr = document.querySelectorAll('.answer_text')
+
+  answersArr.forEach((el) => {
+    if (el.classList.value.includes('clicked')) {
+      console.log('TAPED')
+      answerClicked = true
+    }
+  })
+
+  if (!answerClicked) {
+    document
+      .querySelectorAll('.answer_text')
+      .forEach((el) => el.classList.remove('answer_hovered'))
+
+    event.target.classList.add('answer_hovered')
     const found = testData[counter].answers.find(
       (el) => el.answerText === event.target.textContent
     )
     previewNode.src = found.questionAsset
     imgWrapper.appendChild(previewNode)
+
+    timerStarted = true
+    tapTimer(event)
   }
+}
+
+const touchMoveFunc = (e) => {
+  timerStarted = false
+  tapTime = 0
+}
+
+const touchEndFunc = (e) => {
+  timerStarted = false
+  tapTime = 0
 }
 
 const clickedAnswers = (e) => {
@@ -170,13 +265,26 @@ const createPage = (id) => {
     for (let i in testData[id].answers) {
       let newAnswer = answerText.cloneNode(true)
       newAnswer.textContent = testData[id].answers[i].answerText
+      newAnswer.appendChild(scaler)
       questionText.parentNode.appendChild(newAnswer)
 
-      newAnswer.addEventListener('mouseover', (e) => hoverAnal(e))
+      if (deviceType === 'desktop') {
+        newAnswer.addEventListener('mouseover', (e) => hoverAnalDesktop(e))
 
-      newAnswer.onclick = (e) => {
-        clickedAnswers(e)
-        answerClicked = true
+        newAnswer.onclick = (e) => {
+          clickedAnswers(e)
+          answerClicked = true
+        }
+      } else {
+        console.log('its mobile')
+        newAnswer.addEventListener('touchstart', (e) => hoverAnalMobile(e))
+        newAnswer.addEventListener('touchmove', (e) => touchMoveFunc(e))
+        newAnswer.addEventListener('touchend', (e) => touchEndFunc(e))
+
+        // newAnswer.ontouchend = (e) => {
+        //   clickedAnswers(e)
+        //   answerClicked = true
+        // }
       }
     }
   } else {
@@ -242,4 +350,7 @@ const fontDecor = (decorationSpeed) => {
 }
 
 //Launch zone
+testDevice()
+console.log(deviceType)
+
 startScreen()
