@@ -7,16 +7,28 @@
 
 body {
   width: 100%;
-  height: 100svh;
+  margin: 0;
+  padding: 0;
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
+.test_container {
+  width: 80%;
+  max-height: 100svh;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem auto;
+}
 
 .test_wrapp .font_counter {
   /* font-size: 1.5rem; */
-  font-size: 100%; /*Тест резиновой верстки*/
+  font-size: 120%; /*Тест резиновой верстки*/
   color: var(--accent-color);
 }
 
@@ -31,19 +43,19 @@ body {
 }
 
 .test_wrapp {
-  /* width: 100%; */
+  width: 100%;
   max-width: 800px;
   min-width: 280px;
-  max-height: 100svh;
-  height: min-content;
-  /* aspect-ratio: 16/9; */
   border: 1px solid var(--third-bg-color);
   border-radius: 10px;
   background-color: var(--second-bg-color);
+  padding: 1rem;
 
   display: flex;
   flex-direction: row;
   margin-right: 1.5rem;
+
+  transition: all 2s cubic-bezier(1, 0, 0, 1);
 
   -webkit-box-shadow: 6px 6px 21px 0px var(--main-bg-color);
   -moz-box-shadow: 8px 6px 21px 0px var(--main-bg-color);
@@ -73,6 +85,7 @@ body {
 .img_wrapper {
   width: 90%;
   max-height: 80%;
+  margin-top: 10%;
 
   border-radius: 10px;
   position: relative;
@@ -113,7 +126,7 @@ body {
   align-items: center;
   justify-content: center;
 
-  font-size: 2rem;
+  font-size: 2.5rem;
   background-color: var(--main-bg-color);
   border: 1px solid var(--third-bg-color);
   color: var(--second-bg-color);
@@ -127,11 +140,11 @@ body {
 .card_description {
   width: 90%;
   padding: 1.5rem;
-  height: 70%;
-  min-height: 20rem;
+  height: 60%;
+  min-height: 15rem;
   border-radius: 10px;
   /* border: 1px solid var(--main-bg-color); */
-  color: var(--third-bg-color);
+  color: var(--main-bg-color);
   margin-bottom: 2rem;
 
   display: flex;
@@ -140,8 +153,8 @@ body {
   justify-content: center;
   text-align: left;
   line-height: 1.2rem;
-  /* font-size: 1.2rem; */
-  font-size: 100%;
+
+  font-size: 120%;
 }
 
 .button_wrapper {
@@ -301,29 +314,35 @@ body {
 @media screen and (max-width: 540px) {
   .test_wrapp {
     flex-direction: column;
-    max-height: 80svh;
+    margin-bottom: 2rem;
   }
+
   .left_col {
     width: 100%;
-    max-height: 50%;
+    height: 40svh;
     border-right: none;
     /* border-bottom: 1px dotted var(--third-bg-color); */
   }
 
+  .img_wrapper {
+    margin-top: 0;
+  }
+
   .right_col {
     width: 100%;
-    height: 60%;
+    height: 70%;
     /* max-height: fit-content; */
     border: none;
     margin-top: 0;
     padding-top: 0;
-    justify-content: start;
+    justify-content: space-around;
   }
 
   .card_description {
     min-height: fit-content;
     padding: 0;
     margin: 1rem auto;
+    font-size: 1rem;
   }
 
   .start_description {
@@ -360,23 +379,21 @@ body {
 }
 
 @media screen and (max-width: 400px) {
-  .font_counter {
-    margin-top: 1rem;
-  }
   .test_wrapp {
-    height: min-content;
+    align-items: center;
+    justify-content: center;
   }
+
   .left_col {
-    height: 40%;
+    height: 40svh;
   }
 
   .right_col {
-    height: 80%;
+    height: fit-content;
     justify-content: space-between;
   }
 
   .card_description {
     height: min-content;
-    margin-bottom: -1rem;
   }
 }

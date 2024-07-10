@@ -2,6 +2,7 @@ import { startData, restults } from './gpn_test.js'
 import testData from './gpn_test.js'
 
 const startTestButton = document.querySelector('.start_test_button')
+const testWrap = document.querySelector('.test_wrapp')
 
 const cardCounter = document.querySelector('.font_counter')
 const imgWrapper = document.querySelector('.img_wrapper')
@@ -9,12 +10,6 @@ const cardDescription = document.querySelector('.card_description')
 const questionText = document.querySelector('.question_text')
 const answerText = document.createElement('div')
 answerText.classList.add('answer_text')
-
-// const testWrapper = document.querySelector('.test_wrapp')
-// testWrapper.ontouchstart = (e) => {
-//   e.preventDefault()
-//   console.log(e.target)
-// }
 
 let previewNode = document.createElement('img')
 previewNode.style.position = 'absolute'
@@ -258,6 +253,7 @@ const goToNextQuestion = () => {
 const createPage = (id) => {
   if (id < testData.length) {
     answerClicked = false
+
     // imgWrapper.querySelector('img').src = testData[id].imageSource.base
     for (let i in testData[id].imageSource) {
       if (testData[id].imageSource[i].length > 0) {
@@ -290,11 +286,6 @@ const createPage = (id) => {
         // newAnswer.addEventListener('touchmove', (e) => touchMoveFunc(e))
         newAnswer.addEventListener('touchend', (e) => touchEndFunc(e))
         newAnswer.addEventListener('touchcancel', (e) => touchEndFunc(e))
-
-        // newAnswer.ontouchend = (e) => {
-        //   clickedAnswers(e)
-        //   answerClicked = true
-        // }
       }
     }
   } else {
