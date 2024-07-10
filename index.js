@@ -10,6 +10,12 @@ const questionText = document.querySelector('.question_text')
 const answerText = document.createElement('div')
 answerText.classList.add('answer_text')
 
+// const testWrapper = document.querySelector('.test_wrapp')
+// testWrapper.ontouchstart = (e) => {
+//   e.preventDefault()
+//   console.log(e.target)
+// }
+
 let previewNode = document.createElement('img')
 previewNode.style.position = 'absolute'
 
@@ -116,20 +122,21 @@ const startScreen = () => {
 
   document.querySelector('.font_counter').textContent = startData.testHeader
   cardDescription.textContent = startData.testDescription
+  cardDescription.classList.add('start_description')
 }
 
 startTestButton.onclick = () => {
   console.log('Test Started')
+
   startTestButton.style.display = 'none'
 
   cardDescription.style.display = 'flex'
   document.querySelector('.button_wrapper').style.display = 'block'
   nexQuestionButton.style.display = 'flex'
   cleaner()
-
+  cardDescription.classList.remove('start_description')
   createPage(counter)
 }
-
 nexQuestionButton.onclick = () => {
   if (nexQuestionButton.classList.value.includes('enabled')) {
     if (cardDescription.classList.value.includes('correct_card_description')) {
@@ -142,6 +149,7 @@ nexQuestionButton.onclick = () => {
     }
     nexQuestionButton.classList.toggle('enabled')
     nexQuestionButton.textContent = '>>>>'
+
     goToNextQuestion()
   } else {
     console.log('foo')
@@ -215,6 +223,7 @@ const touchMoveFunc = (e) => {
 }
 
 const touchEndFunc = (e) => {
+  e.preventDefault()
   timerStarted = false
   tapTime = 0
 }
@@ -278,8 +287,9 @@ const createPage = (id) => {
       } else {
         console.log('its mobile')
         newAnswer.addEventListener('touchstart', (e) => hoverAnalMobile(e))
-        newAnswer.addEventListener('touchmove', (e) => touchMoveFunc(e))
+        // newAnswer.addEventListener('touchmove', (e) => touchMoveFunc(e))
         newAnswer.addEventListener('touchend', (e) => touchEndFunc(e))
+        newAnswer.addEventListener('touchcancel', (e) => touchEndFunc(e))
 
         // newAnswer.ontouchend = (e) => {
         //   clickedAnswers(e)
