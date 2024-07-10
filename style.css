@@ -152,7 +152,7 @@ body {
   align-items: center;
   justify-content: center;
   text-align: left;
-  line-height: 1.2rem;
+  line-height: 1.5rem;
 
   font-size: 120%;
 }
@@ -267,7 +267,7 @@ body {
   min-width: 160px;
   width: 50%;
   min-height: 0.8rem;
-  height: fit-content;
+  height: 1rem;
   padding: 1rem;
 
   /* border: 1px solid pink; */
