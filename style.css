@@ -15,7 +15,8 @@ body {
 }
 
 .font_counter {
-  font-size: 1.5rem;
+  /* font-size: 1.5rem; */
+  font-size: 100%; /*Тест резиновой верстки*/
   color: var(--accent-color);
 }
 
@@ -30,9 +31,9 @@ body {
 }
 
 .test_wrapp {
-  width: 100%;
-  max-width: 900px;
-  min-width: 290px;
+  /* width: 100%; */
+  max-width: 800px;
+  min-width: 280px;
   /* aspect-ratio: 16/9; */
   border: 1px solid var(--third-bg-color);
   border-radius: 10px;
@@ -40,6 +41,7 @@ body {
 
   display: flex;
   flex-direction: row;
+  margin-right: 1.5rem;
 
   -webkit-box-shadow: 6px 6px 21px 0px var(--main-bg-color);
   -moz-box-shadow: 8px 6px 21px 0px var(--main-bg-color);
@@ -136,7 +138,8 @@ body {
   justify-content: center;
   text-align: left;
   line-height: 1.2rem;
-  font-size: 1.2rem;
+  /* font-size: 1.2rem; */
+  font-size: 100%;
 }
 
 .button_wrapper {
@@ -188,7 +191,7 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  padding: 0.2rem;
+  padding: 0.5rem;
 
   border: 1px solid var(--main-bg-color);
   color: var(--main-bg-color);
@@ -246,8 +249,11 @@ body {
 }
 
 .next_question {
+  min-width: 160px;
   width: 50%;
-  height: 2rem;
+  min-height: 0.8rem;
+  height: fit-content;
+  padding: 1rem;
 
   /* border: 1px solid pink; */
   background-color: var(--main-bg-color);
@@ -258,6 +264,7 @@ body {
   justify-content: center;
   align-items: center;
   font-weight: bolder;
+  font-size: 80%;
   color: var(--second-bg-color);
 
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -287,4 +294,33 @@ body {
 
 .incorrect_card_description {
   background-color: red;
+}
+
+@media screen and (max-width: 540px) {
+  .test_wrapp {
+    flex-direction: column;
+  }
+  .left_col {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px dotted var(--third-bg-color);
+  }
+  .right_col {
+    width: 100%;
+    border: none;
+  }
+  .card_description {
+    margin: 1rem auto;
+    padding: 0;
+    min-height: fit-content;
+  }
+
+  .question_placeholder {
+    margin-top: 2rem;
+  }
+
+  .next_question {
+    min-height: 2.5rem;
+    padding: 0;
+  }
 }
