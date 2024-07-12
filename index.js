@@ -153,7 +153,7 @@ nexQuestionButton.onclick = () => {
 
 const dataAnal = (data) => {
   const found = testData[counter].answers.find((el) => el.answerText === data)
-  cardDescription.textContent = found.aftershok
+  cardDescription.innerHTML = found.aftershok
   console.log(found.questionAsset)
   suitUp(found.questionAsset)
 
@@ -264,6 +264,7 @@ const createPage = (id) => {
     }
 
     cardDescription.textContent = testData[id].cardDescription
+
     questionText.textContent = testData[id].questionText
     cardCounter.textContent = `Вопрос №${counter + 1}`
 

@@ -157,6 +157,11 @@ body {
   font-size: 120%;
 }
 
+.text_attention {
+  color: var(--accent-color);
+  font-weight: bolder;
+}
+
 .button_wrapper {
   width: 90%;
 
