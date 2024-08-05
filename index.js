@@ -11,7 +11,10 @@ rightColumn.ontouchstart = (e) => {
   if (
     e.target.classList.value === 'question_placeholder' ||
     e.target.classList.value === 'right_col' ||
-    e.target.classList.value === 'card_description'
+    e.target.classList.value === 'card_description' ||
+    e.target.classList.value === 'question_text' ||
+    e.target.classList.value === 'next_question' ||
+    e.target.classList.value === 'start_description'
   ) {
     console.log('!!!')
     return false
@@ -133,7 +136,7 @@ const startScreen = () => {
   cardDescription.classList.add('start_description')
 }
 
-startTestButton.onclick = () => {
+startTestButton.onclick = (e) => {
   console.log('Test Started')
 
   startTestButton.style.display = 'none'
@@ -145,6 +148,21 @@ startTestButton.onclick = () => {
   cardDescription.classList.remove('start_description')
   createPage(counter)
 }
+
+startTestButton.ontouchstart = (e) => {
+  e.preventDefault()
+  console.log('Test Started from mobile')
+
+  startTestButton.style.display = 'none'
+
+  cardDescription.style.display = 'flex'
+  document.querySelector('.button_wrapper').style.display = 'block'
+  nexQuestionButton.style.display = 'flex'
+  cleaner()
+  cardDescription.classList.remove('start_description')
+  createPage(counter)
+}
+
 nexQuestionButton.onclick = () => {
   if (nexQuestionButton.classList.value.includes('enabled')) {
     if (cardDescription.classList.value.includes('correct_card_description')) {
@@ -328,6 +346,7 @@ const createPage = (id) => {
       cardDescription.textContent = foundResult.resultDescription
     }
     testFinished = true
+    nexQuestionButton.classList.add('last_button')
     nexQuestionButton.textContent = 'Попробуем еще разок?'
     nexQuestionButton.onclick = () => {
       location.reload()
