@@ -1,7 +1,7 @@
 //Описываем структуру данных
 
 export const startData = {
-  testHeader: 'ПРИОДЕНЬСЯ!',
+  testHeader: 'ПРОМБЕЗОПАСНОСТЬ',
 
   imageSource: {
     base: 'https://obzor.city/data/images/news_2024/07/gpn_test/naked_man.png',
@@ -13,7 +13,7 @@ export const startData = {
   },
   testDescription:
     'Испокон веков человек ценил в одежде её удобство, эффективность и безопасность. Особенно эти качества важны на производствах. На примере спецодежды сотрудников «Газпромнефть-Востока» рассказываем, какие детали одежды, обувь и средства защиты помогают нефтяникам чувствовать себя комфортно, выполняя свою работу на промыслах.',
-}
+};
 
 const testData = [
   {
@@ -176,7 +176,7 @@ const testData = [
       },
     ],
   },
-]
+];
 
 export const restults = [
   {
@@ -200,6 +200,6 @@ export const restults = [
     resultImage:
       'https://obzor.city/data/images/news_2024/06/shalay/dsc_6927_1.jpg',
   },
-]
+];
 
-export default testData
+export default testData;
