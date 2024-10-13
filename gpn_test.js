@@ -1,7 +1,7 @@
 //Описываем структуру данных
 
 export const startData = {
-  testHeader: 'Безопасность может быть интересной!',
+  testHeader: 'БЕЗОПАСНОСТЬ МОЖЕТ БЫТЬ ИНТЕРЕСНОЙ!',
 
   imageSource: {
     base: 'https://obzor.city/data/images/news_2024/07/gpn_test/naked_man.png',

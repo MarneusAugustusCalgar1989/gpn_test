@@ -1,5 +1,6 @@
 import { startData, restults } from './gpn_test.js'
 import testData from './gpn_test.js'
+import { starBurst } from './starburns.js'
 
 const startTestButton = document.querySelector('.start_test_button')
 const testWrap = document.querySelector('.test_wrapp')
@@ -195,7 +196,9 @@ nexQuestionButton.onclick = () => {
 }
 
 const dataAnal = (data) => {
-  const found = testData[counter].answers.find((el) => el.answerText === data)
+  const found = testData[counter].answers.find(
+    (el) => el.answerText === data.textContent
+  )
   cardDescription.classList.add('text_go_out')
 
   setTimeout(() => {
@@ -204,20 +207,38 @@ const dataAnal = (data) => {
     cardDescription.classList.add('text_go_in')
   }, 1000)
 
-  console.log(found.questionAsset)
   suitUp(found.questionAsset)
 
   if (found.isCorrect) {
     document.querySelector('.clicked').style.backgroundColor = 'green'
     imgWrapper.classList.add('to_head')
-    // cardDescription.classList.add('correct_card_description');
-    imgWrapper.querySelectorAll('img')[1].replaceWith(funMan)
+    const imgArray = imgWrapper.querySelectorAll('img')
+    imgArray.forEach((el) => {
+      if (
+        el.src === found.questionAsset &&
+        el.classList.value.includes('to_scale')
+      ) {
+        el.classList.add('bounce')
+        setTimeout(() => {
+          el.classList.add('drop_shadow')
+        }, 500)
+      }
+      if (
+        el.src === found.questionAsset &&
+        !el.classList.value.includes('to_scale')
+      ) {
+        el.remove()
+      }
+    })
+    starBurst()
 
-    score++
+    data.style.filter = 'drop-shadow(5px -5px 0px gold);'
+    imgWrapper.querySelectorAll('img')[1].replaceWith(funMan)
   } else {
     document.querySelector('.clicked').style.backgroundColor = 'red'
     // cardDescription.classList.add('incorrect_card_description');
   }
+  score++
 }
 
 //TEST - делаем красоту для ПК
@@ -229,6 +250,9 @@ const hoverAnalDesktop = (event) => {
     )
     previewNode.classList.add('to_scale')
     previewNode.src = found.questionAsset
+    if (previewNode.classList.value.includes('drop_shadow')) {
+      previewNode.classList.remove('drop_shadow')
+    }
     imgWrapper.appendChild(previewNode)
   }
 }
@@ -251,7 +275,7 @@ const hoverAnalMobile = (event) => {
       .querySelectorAll('.answer_text')
       .forEach((el) => el.classList.remove('answer_hovered'))
 
-    event.target.classList.add('answer_hovered')
+    event.target.classList.add('answer_hove1red')
     const found = testData[counter].answers.find(
       (el) => el.answerText === event.target.textContent
     )
@@ -276,7 +300,7 @@ const touchEndFunc = (e) => {
 
 const clickedAnswers = (e) => {
   e.target.classList.add('clicked')
-  dataAnal(e.target.textContent)
+  dataAnal(e.target)
   cardCounter.classList.remove('text_go_in')
   cardDescription.classList.remove('swap_to_centre')
   buttonWrapper.classList.remove('fade_in')
@@ -298,7 +322,6 @@ const clickedAnswers = (e) => {
 }
 
 const goToNextQuestion = () => {
-  document.querySelector('.answer_text').remove()
   const inactiveElements = document.querySelectorAll('.inactive')
   imgWrapper.classList.remove('to_head')
   cardCounter.classList.add('text_go_out')
@@ -306,13 +329,15 @@ const goToNextQuestion = () => {
   cardDescription.classList.add('swap_to_right')
   buttonWrapper.classList.remove('fade_in')
   buttonWrapper.classList.add('fade_out')
+  imgWrapper.querySelector('.to_scale').classList.remove('bounce')
+  imgWrapper.querySelector('.to_scale').remove()
 
   setTimeout(() => {
     cardCounter.classList.add('text_go_in')
     cardCounter.classList.remove('text_go_out')
     cardDescription.classList.remove('swap_to_right')
     buttonWrapper.classList.remove('fade_out')
-
+    document.querySelector('.answer_text').remove()
     buttonWrapper.classList.add('fade_in')
     inactiveElements.forEach((el) => el.remove())
 
