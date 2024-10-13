@@ -7,6 +7,7 @@ const testWrap = document.querySelector('.test_wrapp')
 const cardCounter = document.querySelector('.font_counter')
 const imgWrapper = document.querySelector('.img_wrapper')
 const rightColumn = document.querySelector('.right_col')
+const buttonWrapper = document.querySelector('.button_wrapper')
 rightColumn.ontouchstart = (e) => {
   if (
     e.target.classList.value === 'question_placeholder' ||
@@ -25,6 +26,7 @@ const cardDescription = document.querySelector('.card_description')
 
 const questionText = document.querySelector('.question_text')
 const answerText = document.createElement('div')
+
 answerText.classList.add('answer_text')
 
 let previewNode = document.createElement('img')
@@ -139,14 +141,24 @@ const startScreen = () => {
 startTestButton.onclick = (e) => {
   console.log('Test Started')
 
-  startTestButton.style.display = 'none'
+  cardCounter.classList.add('text_go_out')
+  cardDescription.classList.add('swap_to_right')
+  startTestButton.classList.add('swap_down')
+  setTimeout(() => {
+    cardCounter.classList.remove('text_go_out')
+    cardDescription.classList.remove('swap_to_right')
+    cardCounter.classList.add('text_go_in')
+    cardDescription.classList.add('swap_to_centre')
+    startTestButton.style.display = 'none'
+    cardDescription.style.display = 'flex'
+    buttonWrapper.style.display = 'block'
+    buttonWrapper.classList.add('fade_in')
+    nexQuestionButton.style.display = 'flex'
 
-  cardDescription.style.display = 'flex'
-  document.querySelector('.button_wrapper').style.display = 'block'
-  nexQuestionButton.style.display = 'flex'
-  cleaner()
-  cardDescription.classList.remove('start_description')
-  createPage(counter)
+    cleaner()
+    cardDescription.classList.remove('start_description')
+    createPage(counter)
+  }, 1000)
 }
 
 startTestButton.ontouchstart = (e) => {
@@ -184,12 +196,20 @@ nexQuestionButton.onclick = () => {
 
 const dataAnal = (data) => {
   const found = testData[counter].answers.find((el) => el.answerText === data)
-  cardDescription.innerHTML = found.aftershok
+  cardDescription.classList.add('text_go_out')
+
+  setTimeout(() => {
+    cardDescription.classList.remove('text_go_out')
+    cardDescription.innerHTML = found.aftershok
+    cardDescription.classList.add('text_go_in')
+  }, 1000)
+
   console.log(found.questionAsset)
   suitUp(found.questionAsset)
 
   if (found.isCorrect) {
     document.querySelector('.clicked').style.backgroundColor = 'green'
+    imgWrapper.classList.add('to_head')
     // cardDescription.classList.add('correct_card_description');
     imgWrapper.querySelectorAll('img')[1].replaceWith(funMan)
 
@@ -207,7 +227,7 @@ const hoverAnalDesktop = (event) => {
     const found = testData[counter].answers.find(
       (el) => el.answerText === event.target.textContent
     )
-
+    previewNode.classList.add('to_scale')
     previewNode.src = found.questionAsset
     imgWrapper.appendChild(previewNode)
   }
@@ -257,6 +277,9 @@ const touchEndFunc = (e) => {
 const clickedAnswers = (e) => {
   e.target.classList.add('clicked')
   dataAnal(e.target.textContent)
+  cardCounter.classList.remove('text_go_in')
+  cardDescription.classList.remove('swap_to_centre')
+  buttonWrapper.classList.remove('fade_in')
   let answersList = document.querySelectorAll('.answer_text')
   answersList.forEach((el) => {
     if (!el.classList.value.includes('clicked')) {
@@ -267,23 +290,42 @@ const clickedAnswers = (e) => {
       console.log('foo')
     }
   })
-  fontDecor(150)
 
-  nexQuestionButton.classList.toggle('enabled')
+  setTimeout(() => {
+    fontDecor(150)
+    nexQuestionButton.classList.toggle('enabled')
+  }, 1000)
 }
 
 const goToNextQuestion = () => {
   document.querySelector('.answer_text').remove()
   const inactiveElements = document.querySelectorAll('.inactive')
-  inactiveElements.forEach((el) => el.remove())
-  cleaner()
+  imgWrapper.classList.remove('to_head')
+  cardCounter.classList.add('text_go_out')
+  cardDescription.classList.remove('text_go_in')
+  cardDescription.classList.add('swap_to_right')
+  buttonWrapper.classList.remove('fade_in')
+  buttonWrapper.classList.add('fade_out')
 
-  createPage((counter += 1))
+  setTimeout(() => {
+    cardCounter.classList.add('text_go_in')
+    cardCounter.classList.remove('text_go_out')
+    cardDescription.classList.remove('swap_to_right')
+    buttonWrapper.classList.remove('fade_out')
+
+    buttonWrapper.classList.add('fade_in')
+    inactiveElements.forEach((el) => el.remove())
+
+    cleaner()
+
+    createPage((counter += 1))
+  }, 1000)
 }
 
 const createPage = (id) => {
   if (id < testData.length) {
     answerClicked = false
+    cardDescription.classList.add('swap_to_centre')
 
     // imgWrapper.querySelector('img').src = testData[id].imageSource.base
     for (let i in testData[id].imageSource) {

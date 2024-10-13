@@ -77,7 +77,7 @@ const testData = [
         aftershok:
           'Безусловно, наушники с любимой музыкой или подкастом могут немного приглушить окружающий шум. Но даже самые крутые подобные устройства не смогут противостоять наиболее шумным агрегатам на производстве (они просто под это не «заточены»).',
         questionAsset:
-          'https://obzor.city/data/images/news_2024/07/gpn_test/ear_plugs.png',
+          'https://obzor.city/data/images/news_2024/07/gpn_test/beats.png',
       },
       {
         answerText: 'Противошумовые наушники',
@@ -85,10 +85,10 @@ const testData = [
         aftershok:
           'Действительно, такие наушники — наилучший выбор для защиты ушей от шума.  Их отличает специальная конструкция. Внутренность чаши заполнена материалом, снижающим уровень шума. Увеличенный объём пространства между звукопоглощающим вкладышем и ушной раковиной препятствует скоплению влаги. Мягкие и широкие амортизаторы обеспечивают оптимальное прижатие чашек к голове, не вызывая дискомфорта и утомления при длительном ношении. ',
         questionAsset:
-          'https://obzor.city/data/images/news_2024/07/gpn_test/beats.png',
+          'https://obzor.city/data/images/news_2024/07/gpn_test/norm_headphones.png',
       },
       {
-        answerText: 'Шапка-ушанка',
+        answerText: 'Шапку-ушанку',
         isCorrect: false,
         aftershok:
           'Шапка – это, конечно, дело хорошее. Она поможет сохранить уши от холода, но рядом с мощными источниками шума нужны специальные средства, которые помогут защитить слух работника.',
@@ -179,11 +179,13 @@ const testData = [
     questionText: 'Что нужно надеть на голову?',
     imageSource: {
       base: 'https://obzor.city/data/images/news_2024/07/gpn_test/naked_man.png',
-      hat: 'https://obzor.city/data/images/news_2024/07/gpn_test/man_hat.png',
-      glasses: '',
+      hat: '',
+      glasses:
+        'https://obzor.city/data/images/news_2024/07/gpn_test/guard_glasses1.png',
       kurtka:
         'https://obzor.city/data/images/news_2024/07/gpn_test/man_kurtka.png',
-      shoes: '',
+      shoes:
+        'https://obzor.city/data/images/news_2024/07/gpn_test/man_shoes.png',
     },
     cardDescription:
       'Сотрудник «Газпромнефть-Востока» выходит из своей комнаты перед началом работы. Он оделся по форме — на нем костюм, очки и надежные ботинки. Осталась самая малость...',
@@ -193,24 +195,22 @@ const testData = [
         isCorrect: false,
         aftershok:
           'Прекрасный выбор, чтобы прогуляться по городу! Но на промысле головной убор должен в первую очередь обеспечивать безопасность. ',
-        questionAsset:
-          'https://obzor.city/data/images/news_2024/07/gpn_test/man_shoes.png',
+        questionAsset: '',
       },
       {
-        answerText: 'Брендированная кепка',
+        answerText: 'Брендированную кепку',
         isCorrect: false,
         aftershok:
           'Несмотря на элегантность и удобство кепки, хоть и с логотипом компании, все же не подходят для того, чтобы надевать их на промысле.',
-        questionAsset:
-          'https://obzor.city/data/images/news_2024/07/gpn_test/kedos.png',
+        questionAsset: '',
       },
       {
-        answerText: 'Защитная каска',
-        isCorrect: false,
+        answerText: 'Защитную каску',
+        isCorrect: true,
         aftershok:
           'Именно этого элемента не хватает, чтобы завершить наш безопасный образ. Каска предназначена для защиты головы человека от ударов и механических воздействий. Для изготовления корпуса используются сверхпрочные материалы – ABS-пластик, стекловолокно, текстолит, полиэтилен, сотовый поликарбонат, винипласт. Каски проходят испытание на прочность, поэтому в них можно не бояться удариться головой об косяк или арматуру. А еще они могут выдержать падение двух кирпичей или, скажем, прыжок среднего, но довольно упитанного взрослого кота весом 5 килограммов.',
         questionAsset:
-          'https://obzor.city/data/images/news_2024/07/gpn_test/tapochki.png',
+          'https://obzor.city/data/images/news_2024/07/gpn_test/man_hat.png',
       },
     ],
   },

@@ -81,6 +81,7 @@ body {
 
 .left_col {
   border-right: 1px dotted var(--third-bg-color);
+  overflow: hidden;
 }
 .right_col {
   border-left: 1px dotted var(--third-bg-color);
@@ -159,6 +160,7 @@ body {
   line-height: 1.5rem;
 
   font-size: 120%;
+  transition: all 1s;
 }
 
 .text_attention {
@@ -182,6 +184,7 @@ body {
 
 .question_text {
   width: 95%;
+  font-size: 0.7rem;
   min-height: 4rem;
   height: fit-content;
 
@@ -422,4 +425,132 @@ body {
   .card_description {
     height: min-content;
   }
+}
+
+/* Анимациии для привлечения внимания */
+
+@keyframes to_head {
+  to {
+    transform: scale(1.3) translateY(5rem);
+  }
+}
+
+.to_head {
+  animation: to_head 1s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes go_back {
+  to {
+    transform: scale(1) translateY(0);
+  }
+}
+.go_back {
+  animation: go_back 1s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes to_scale {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.to_scale {
+  animation: to_scale 0.5s ease-in-out forwards;
+  transform-origin: 50% 50%;
+}
+
+@keyframes text_go_out {
+  to {
+    transform: translateY(-2rem);
+    opacity: 0;
+  }
+}
+
+.text_go_out {
+  animation: text_go_out 1s ease-in-out;
+}
+
+@keyframes text_go_in {
+  from {
+    transform: translateY(-2rem);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.text_go_in {
+  animation: text_go_in 1s ease-in-out;
+}
+
+@keyframes swap_to_right {
+  to {
+    transform: translateX(2rem);
+    opacity: 0;
+  }
+}
+
+.swap_to_right {
+  animation: swap_to_right 1s ease-in-out;
+}
+
+@keyframes swap_to_centre {
+  from {
+    transform: translateX(-2rem);
+    opacity: 0;
+  }
+  to {
+    tranasform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.swap_to_centre {
+  animation: swap_to_centre 1s ease-in-out;
+}
+
+@keyframes swap_down {
+  to {
+    transform: translateY(2rem);
+    opacity: 0;
+  }
+}
+
+.swap_down {
+  animation: swap_down 1s ease-in-out;
+}
+
+@keyframes fade_in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade_in {
+  animation: fade_in 1s ease-in-out;
+}
+
+@keyframes fade_out {
+  to {
+    opacity: 0;
+  }
+}
+
+.fade_out {
+  animation: fade_out 1s ease-in-out;
 }
