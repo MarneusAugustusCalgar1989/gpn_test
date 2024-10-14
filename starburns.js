@@ -8,8 +8,8 @@ export const starBurst = () => {
     starNode.classList.add(i)
     starNode.style.animation = `startrek_${i} 0.7s ease-in-out forwards`
     document
-      .querySelector('.test_wrapp')
-      .insertBefore(starNode, document.querySelector('.left_col'))
+      .querySelector('.left_col')
+      .insertBefore(starNode, document.querySelector('.font_counter'))
   }
   setTimeout(() => {
     document.querySelectorAll('.stars').forEach((el) => el.remove())

@@ -72,6 +72,7 @@ body {
 .right_col {
   width: 50%;
   height: 100%;
+  position: relative;
   /* border: 1px solid black; */
 
   display: flex;
@@ -102,6 +103,7 @@ body {
   align-items: center;
   justify-content: center;
   display: flex;
+  transition: all 1s;
 }
 
 .img_wrapper img {
@@ -443,8 +445,11 @@ body {
 }
 
 .to_head {
-  animation: to_head 1s ease-in-out;
-  animation-fill-mode: forwards;
+  transform: scale(1.3) translateY(5rem);
+}
+
+.to_shoes {
+  transform: scale(1.3) translateY(-8rem);
 }
 
 @keyframes go_back {
@@ -570,8 +575,8 @@ body {
   margin: 0;
   color: gold;
   font-size: 2rem;
-  top: 30%;
-  left: 20%;
+  top: 50%;
+  left: 45%;
 }
 
 @keyframes startrek_0 {
@@ -613,7 +618,7 @@ body {
   }
 
   100% {
-    left: 35%;
+    left: 85%;
     top: 15%;
     opacity: 0;
   }
@@ -642,7 +647,7 @@ body {
   }
 
   100% {
-    left: 35%;
+    left: 80%;
     top: 35%;
     opacity: 0;
   }

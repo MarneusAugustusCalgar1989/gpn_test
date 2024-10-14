@@ -211,7 +211,7 @@ const dataAnal = (data) => {
 
   if (found.isCorrect) {
     document.querySelector('.clicked').style.backgroundColor = 'green'
-    imgWrapper.classList.add('to_head')
+    imgWrapper.classList.add(found.previewFocus)
     const imgArray = imgWrapper.querySelectorAll('img')
     imgArray.forEach((el) => {
       if (
@@ -250,6 +250,12 @@ const hoverAnalDesktop = (event) => {
     )
     previewNode.classList.add('to_scale')
     previewNode.src = found.questionAsset
+    if (
+      testData[counter].answers.find((el) => el.previewFocus).previewFocus ===
+      'to_shoes'
+    ) {
+      imgWrapper.classList.add('to_shoes')
+    }
     if (previewNode.classList.value.includes('drop_shadow')) {
       previewNode.classList.remove('drop_shadow')
     }
@@ -275,11 +281,21 @@ const hoverAnalMobile = (event) => {
       .querySelectorAll('.answer_text')
       .forEach((el) => el.classList.remove('answer_hovered'))
 
-    event.target.classList.add('answer_hove1red')
+    event.target.classList.add('answer_hovered')
     const found = testData[counter].answers.find(
       (el) => el.answerText === event.target.textContent
     )
     previewNode.src = found.questionAsset
+    previewNode.classList.add('to_scale')
+    if (
+      testData[counter].answers.find((el) => el.previewFocus).previewFocus ===
+      'to_shoes'
+    ) {
+      imgWrapper.classList.add('to_shoes')
+    }
+    if (previewNode.classList.value.includes('drop_shadow')) {
+      previewNode.classList.remove('drop_shadow')
+    }
     imgWrapper.appendChild(previewNode)
 
     timerStarted = true
@@ -323,16 +339,18 @@ const clickedAnswers = (e) => {
 
 const goToNextQuestion = () => {
   const inactiveElements = document.querySelectorAll('.inactive')
-  imgWrapper.classList.remove('to_head')
+
   cardCounter.classList.add('text_go_out')
   cardDescription.classList.remove('text_go_in')
   cardDescription.classList.add('swap_to_right')
   buttonWrapper.classList.remove('fade_in')
   buttonWrapper.classList.add('fade_out')
-  imgWrapper.querySelector('.to_scale').classList.remove('bounce')
-  imgWrapper.querySelector('.to_scale').remove()
 
   setTimeout(() => {
+    imgWrapper.querySelector('.to_scale').classList.remove('bounce')
+    imgWrapper.querySelector('.to_scale').remove()
+    imgWrapper.classList.remove('to_head') ||
+      imgWrapper.classList.remove('to_shoes')
     cardCounter.classList.add('text_go_in')
     cardCounter.classList.remove('text_go_out')
     cardDescription.classList.remove('swap_to_right')
