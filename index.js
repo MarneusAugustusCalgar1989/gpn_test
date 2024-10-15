@@ -376,6 +376,8 @@ const clickedAnswers = (e) => {
 }
 
 const goToNextQuestion = () => {
+  testWrap.scrollIntoView({ behavior: 'smooth' })
+
   const inactiveElements = document.querySelectorAll('.inactive')
   if (cardCounter.classList.value.includes('hidden')) {
     cardCounter.classList.remove('hidden')
