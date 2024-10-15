@@ -104,8 +104,8 @@ const testData = [
   {
     questionText: 'Что ей следует надеть в целях безопасности?',
     imageSource: {
-      base: 'https://obzor.city/data/images/news_2024/07/gpn_test/tshirted_man.png',
-      hat: 'https://obzor.city/data/images/news_2024/07/gpn_test/man_hat.png',
+      base: 'https://obzor.city/data/images/news_2024/07/gpn_test/lady_default_n_hands.png',
+      hat: '',
       glasses: '',
       kurtka: '',
       shoes:
@@ -120,7 +120,7 @@ const testData = [
         aftershok:
           'Работники на промысле всегда, помимо нахождения в общежитии, должны оставаться в форме – специальной рабочей одежде.',
         questionAsset:
-          'https://obzor.city/data/images/news_2024/07/gpn_test/shirt_tshirt_with_hands.png',
+          'https://obzor.city/data/images/news_2024/07/gpn_test/platye_n_hands.png',
       },
       {
         answerText: 'Специальный костюм для защиты от кислот и щелочей',
@@ -137,7 +137,7 @@ const testData = [
         aftershok:
           'Всему своё место и деловому костюму тоже. Нет необходимости брать его с собой на промысел. Здесь лучше всего подойдет специальная одежда, которую выдают перед поездкой на промысел.',
         questionAsset:
-          'https://obzor.city/data/images/news_2024/07/gpn_test/man_suite_with_hands.png',
+          'https://obzor.city/data/images/news_2024/07/gpn_test/suite_n_hands.png',
       },
     ],
   },
