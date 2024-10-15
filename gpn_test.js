@@ -104,7 +104,7 @@ const testData = [
   {
     questionText: 'Что ей следует надеть в целях безопасности?',
     imageSource: {
-      base: 'https://obzor.city/data/images/news_2024/07/gpn_test/lady_default_n_hands.png',
+      base: 'https://obzor.city/data/images/news_2024/07/gpn_test/lady_default_n_hands_1.png',
       hat: '',
       glasses: '',
       kurtka: '',
@@ -120,7 +120,7 @@ const testData = [
         aftershok:
           'Работники на промысле всегда, помимо нахождения в общежитии, должны оставаться в форме – специальной рабочей одежде.',
         questionAsset:
-          'https://obzor.city/data/images/news_2024/07/gpn_test/platye_n_hands.png',
+          'https://obzor.city/data/images/news_2024/07/gpn_test/platye_n_hands_2.png',
       },
       {
         answerText: 'Специальный костюм для защиты от кислот и щелочей',
@@ -128,8 +128,9 @@ const testData = [
         aftershok:
           'Прекрасный выбор! Этот костюм позволяет надежно защитить работника от химических воздействий (кислот и щелочей). Костюм выполнен из специального плотного материала, который может выдержать контакт с химреагентами. В нем можно смело идти на прогулку в сплошной ливень и буквально выйти сухим из воды, ведь эта одежда готова к продолжительному контакту с различными жидкостями. В такой спецодежде не страшны даже капли кипящей нефти. Вот бы домохозяйкам иметь такой костюм, и можно не бояться получить ожоги при жарке котлет.',
         questionAsset:
-          'https://obzor.city/data/images/news_2024/07/gpn_test/man_kurtka.png',
+          'https://obzor.city/data/images/news_2024/07/gpn_test/combez_lady_n_hands.png',
         previewFocus: 'to_head',
+        funLady: true,
       },
       {
         answerText: 'Деловой костюм',
@@ -137,7 +138,7 @@ const testData = [
         aftershok:
           'Всему своё место и деловому костюму тоже. Нет необходимости брать его с собой на промысел. Здесь лучше всего подойдет специальная одежда, которую выдают перед поездкой на промысел.',
         questionAsset:
-          'https://obzor.city/data/images/news_2024/07/gpn_test/suite_n_hands.png',
+          'https://obzor.city/data/images/news_2024/07/gpn_test/suite_n_hands_1.png',
       },
     ],
   },
@@ -170,7 +171,7 @@ const testData = [
         aftershok:
           'Несмотря на стиль и всю прекрасность кедов, у них другое предназначение. Лучше все же выбрать супер-ботинки, ведь они удобны с учетом защитной функции.',
         questionAsset:
-          'https://obzor.city/data/images/news_2024/07/gpn_test/kedos.png',
+          'https://obzor.city/data/images/news_2024/07/gpn_test/kedos1.png',
       },
       {
         answerText: 'Тапочки',
@@ -178,7 +179,7 @@ const testData = [
         aftershok:
           'Несмотря на всё удобство, тапочки небезопасны на производстве, поэтому стоит выбрать специальные ботинки.',
         questionAsset:
-          'https://obzor.city/data/images/news_2024/07/gpn_test/tapochki.png',
+          'https://obzor.city/data/images/news_2024/07/gpn_test/tapochki_beauty.png',
       },
     ],
   },

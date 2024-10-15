@@ -29,6 +29,7 @@ body {
   align-items: center;
   justify-content: center;
   margin: 2rem auto;
+  transition: all 0.5s;
 }
 
 .test_wrapp .font_counter {
@@ -80,6 +81,7 @@ body {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  transition: all 0.5s;
 }
 
 .left_col {
@@ -169,7 +171,7 @@ body {
   line-height: 1.5rem;
 
   font-size: 120%;
-  transition: all 1s;
+  transition: all 0.5s;
 }
 
 .text_attention {
@@ -182,6 +184,7 @@ body {
 
   display: none;
   border-radius: 10px;
+  transition: all 0.5s;
 }
 
 .question_placeholder {
@@ -189,6 +192,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  transition: all 0.5s;
 }
 
 .question_text {
@@ -214,6 +218,7 @@ body {
   font-weight: bolder;
 
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  transition: all 0.5s;
 }
 .answer_text {
   width: 90%;
@@ -421,18 +426,32 @@ body {
     align-items: center;
     justify-content: center;
   }
+  .img_wrapper {
+    overflow: hidden;
+  }
 
   .left_col {
     height: 40svh;
   }
-
+  .hidden {
+    display: none;
+  }
   .right_col {
     height: fit-content;
     justify-content: space-between;
   }
 
+  .to_head_mobile {
+    transform: scale(1.5) translateY(3rem);
+  }
+  .to_shoes_mobile {
+    transform: scale(1.5) translateY(-3.7rem);
+  }
   .card_description {
     height: min-content;
+    margin: 0.7rem;
+    font-size: 0.7rem;
+    line-height: 0.7rem;
   }
 }
 
@@ -669,4 +688,41 @@ body {
 .bounce {
   animation: bounce 0.5s;
   transform-origin: 50% 40%;
+}
+
+@keyframes bounce_fade_in {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+.bounce_fade_in {
+  animation: bounce 0.5s;
+  transform-origin: 50% 50%;
+}
+
+.wrong_style {
+  transform: scale(1.1);
+  transition: all 1s;
+}
+
+.red_crest {
+  animation: bounce_fade_in 0.5s;
+  transform-origin: 50% 50%;
+}
+
+.fade_out_na {
+  transform: scale(0) opacity(0);
+  transition: all 1s;
 }

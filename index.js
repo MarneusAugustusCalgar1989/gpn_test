@@ -4,7 +4,11 @@ import { starBurst } from './starburns.js'
 
 const startTestButton = document.querySelector('.start_test_button')
 const testWrap = document.querySelector('.test_wrapp')
+const redCrest = document.createElement('img')
+redCrest.style.position = 'absolute'
+redCrest.classList.add('red_crest')
 
+redCrest.src = 'https://obzor.city/data/images/news_2024/07/gpn_test/nope.png'
 const cardCounter = document.querySelector('.font_counter')
 const imgWrapper = document.querySelector('.img_wrapper')
 const rightColumn = document.querySelector('.right_col')
@@ -125,7 +129,9 @@ let answerClicked = false
 const funMan = document.createElement('img')
 funMan.src =
   'https://obzor.city/data/images/news_2024/07/gpn_test/naked_man_fun.png'
-
+const funLady = document.createElement('img')
+funLady.src =
+  'https://obzor.city/data/images/news_2024/07/gpn_test/fun_lady.png'
 // Рисуем стартовый экран
 const startScreen = () => {
   for (let i in startData.imageSource) {
@@ -166,14 +172,25 @@ startTestButton.ontouchstart = (e) => {
   e.preventDefault()
   console.log('Test Started from mobile')
 
-  startTestButton.style.display = 'none'
+  cardCounter.classList.add('text_go_out')
+  cardDescription.classList.add('swap_to_right')
+  startTestButton.classList.add('swap_down')
 
-  cardDescription.style.display = 'flex'
-  document.querySelector('.button_wrapper').style.display = 'block'
-  nexQuestionButton.style.display = 'flex'
-  cleaner()
-  cardDescription.classList.remove('start_description')
-  createPage(counter)
+  setTimeout(() => {
+    cardCounter.classList.remove('text_go_out')
+    cardDescription.classList.remove('swap_to_right')
+    cardCounter.classList.add('text_go_in')
+    cardDescription.classList.add('swap_to_centre')
+    startTestButton.style.display = 'none'
+    cardDescription.style.display = 'flex'
+    buttonWrapper.style.display = 'block'
+    buttonWrapper.classList.add('fade_in')
+    nexQuestionButton.style.display = 'flex'
+
+    cleaner()
+    cardDescription.classList.remove('start_description')
+    createPage(counter)
+  }, 1000)
 }
 
 nexQuestionButton.onclick = () => {
@@ -208,11 +225,13 @@ const dataAnal = (data) => {
   }, 1000)
 
   suitUp(found.questionAsset)
-
+  const imgArray = imgWrapper.querySelectorAll('img')
   if (found.isCorrect) {
     document.querySelector('.clicked').style.backgroundColor = 'green'
-    imgWrapper.classList.add(found.previewFocus)
-    const imgArray = imgWrapper.querySelectorAll('img')
+    deviceType === 'desktop'
+      ? imgWrapper.classList.add(found.previewFocus)
+      : imgWrapper.classList.add(found.previewFocus + '_mobile')
+
     imgArray.forEach((el) => {
       if (
         el.src === found.questionAsset &&
@@ -233,10 +252,23 @@ const dataAnal = (data) => {
     starBurst()
 
     data.style.filter = 'drop-shadow(5px -5px 0px gold);'
-    imgWrapper.querySelectorAll('img')[1].replaceWith(funMan)
+    found.funLady
+      ? imgWrapper.querySelectorAll('img')[1].replaceWith(funLady)
+      : imgWrapper.querySelectorAll('img')[1].replaceWith(funMan)
   } else {
     document.querySelector('.clicked').style.backgroundColor = 'red'
-    // cardDescription.classList.add('incorrect_card_description');
+    imgArray.forEach((el) => {
+      if (el.classList.value.includes('to_scale')) {
+        el.remove()
+      }
+      if (
+        el.src === found.questionAsset &&
+        !el.classList.value.includes('to_scale')
+      ) {
+        console.log('Добавим красный крест')
+        imgWrapper.appendChild(redCrest)
+      }
+    })
   }
   score++
 }
@@ -254,7 +286,9 @@ const hoverAnalDesktop = (event) => {
       testData[counter].answers.find((el) => el.previewFocus).previewFocus ===
       'to_shoes'
     ) {
-      imgWrapper.classList.add('to_shoes')
+      deviceType === 'desktop'
+        ? imgWrapper.classList.add('to_shoes')
+        : imgWrapper.classList.add('to_shoes_mobile')
     }
     if (previewNode.classList.value.includes('drop_shadow')) {
       previewNode.classList.remove('drop_shadow')
@@ -291,7 +325,11 @@ const hoverAnalMobile = (event) => {
       testData[counter].answers.find((el) => el.previewFocus).previewFocus ===
       'to_shoes'
     ) {
-      imgWrapper.classList.add('to_shoes')
+      deviceType === 'desktop'
+        ? imgWrapper.classList.add('to_shoes')
+        : imgWrapper.classList.add('to_shoes_mobile')
+
+      cardCounter.classList.add('hidden')
     }
     if (previewNode.classList.value.includes('drop_shadow')) {
       previewNode.classList.remove('drop_shadow')
@@ -339,18 +377,25 @@ const clickedAnswers = (e) => {
 
 const goToNextQuestion = () => {
   const inactiveElements = document.querySelectorAll('.inactive')
+  if (cardCounter.classList.value.includes('hidden')) {
+    cardCounter.classList.remove('hidden')
+  }
 
   cardCounter.classList.add('text_go_out')
   cardDescription.classList.remove('text_go_in')
   cardDescription.classList.add('swap_to_right')
   buttonWrapper.classList.remove('fade_in')
   buttonWrapper.classList.add('fade_out')
+  redCrest.classList.remove('red_crest')
+  redCrest.classList.add('fade_out')
 
   setTimeout(() => {
-    imgWrapper.querySelector('.to_scale').classList.remove('bounce')
-    imgWrapper.querySelector('.to_scale').remove()
+    imgWrapper.querySelector('.to_scale')?.classList.remove('bounce')
+    imgWrapper.querySelector('.to_scale')?.remove()
     imgWrapper.classList.remove('to_head') ||
-      imgWrapper.classList.remove('to_shoes')
+      imgWrapper.classList.remove('to_shoes') ||
+      imgWrapper.classList.remove('to_head_mobile') ||
+      imgWrapper.classList.remove('to_shoes_mobile')
     cardCounter.classList.add('text_go_in')
     cardCounter.classList.remove('text_go_out')
     cardDescription.classList.remove('swap_to_right')
@@ -369,6 +414,8 @@ const createPage = (id) => {
   if (id < testData.length) {
     answerClicked = false
     cardDescription.classList.add('swap_to_centre')
+    redCrest.classList.remove('fade_out')
+    redCrest.classList.add('red_crest')
 
     // imgWrapper.querySelector('img').src = testData[id].imageSource.base
     for (let i in testData[id].imageSource) {
@@ -414,6 +461,7 @@ const createPage = (id) => {
       imgWrapper.querySelector('img').src = foundResult.resultImage
       cardCounter.textContent = foundResult.resulHeader
       cardDescription.textContent = foundResult.resultDescription
+      cardDescription.classList.add('fade_in')
     } else if (
       score / testData.length >= 0.3 &&
       score / testData.length < 0.7
@@ -423,12 +471,14 @@ const createPage = (id) => {
       imgWrapper.querySelector('img').src = foundResult.resultImage
       cardCounter.textContent = foundResult.resulHeader
       cardDescription.textContent = foundResult.resultDescription
+      cardDescription.classList.add('fade_in')
     } else {
       console.log('BAD', score / testData.length)
       const foundResult = restults.find((el) => el.resultValue === 'bad boy')
       imgWrapper.querySelector('img').src = foundResult.resultImage
       cardCounter.textContent = foundResult.resulHeader
       cardDescription.textContent = foundResult.resultDescription
+      cardDescription.classList.add('fade_in')
     }
     testFinished = true
     nexQuestionButton.classList.add('last_button')
