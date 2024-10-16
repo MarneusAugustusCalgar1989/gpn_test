@@ -227,6 +227,8 @@ const dataAnal = (data) => {
   suitUp(found.questionAsset)
   const imgArray = imgWrapper.querySelectorAll('img')
   if (found.isCorrect) {
+    score++
+
     document.querySelector('.clicked').style.backgroundColor = 'green'
     deviceType === 'desktop'
       ? imgWrapper.classList.add(found.previewFocus)
@@ -270,7 +272,6 @@ const dataAnal = (data) => {
       }
     })
   }
-  score++
 }
 
 //TEST - делаем красоту для ПК

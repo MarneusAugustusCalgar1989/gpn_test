@@ -235,7 +235,7 @@ export const restults = [
       'Поздравляем! Ваши навыки специалиста по производственной безопасности великолепны. Вы, как и работники «Газпромнефть-Востока», понимаете важность использования подходящих средств индивидуальной защиты. Ведь спецодежда, обувь и аксессуары делают работу не только комфортной, но и безопасной.',
     resultValue: 'good boy',
     resultImage:
-      'https://obzor.city/data/images/news_2024/06/shalay/dsc_6970_1.jpg',
+      'https://obzor.city/data/images/news_2024/07/gpn_test/good_result_nc.gif',
   },
   {
     resulHeader: 'Средний результат',
@@ -243,7 +243,7 @@ export const restults = [
       'Что ж, вам еще есть над чем поработать! Обратите внимание, что на предприятиях «Газпромнефть-Востока» одним из важнейших аспектов всегда была безопасность производства. Именно она определяет в том числе и то, что сотрудники компании носят во время работы.',
     resultValue: 'middle boy',
     resultImage:
-      'https://obzor.city/data/images/news_2024/06/shalay/dsc_6935_1.jpg',
+      'https://obzor.city/data/images/news_2024/07/gpn_test/norm_result_nc.gif',
   },
   {
     resulHeader: 'Плохой результат',
@@ -251,7 +251,7 @@ export const restults = [
       'Кажется, вы немного перепутали, и подготовили работников не ко смене на производстве, а к походу в магазин у дома! Попробуйте пройти тест еще раз, и вы наверняка поймете, в чем тут дело, зачем нужно носить каски вместо кепок и ботинки с железным носком вместо тапочек.',
     resultValue: 'bad boy',
     resultImage:
-      'https://obzor.city/data/images/news_2024/06/shalay/dsc_6927_1.jpg',
+      'https://obzor.city/data/images/news_2024/07/gpn_test/bad_result_nc.gif',
   },
 ]
 
