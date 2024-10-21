@@ -617,6 +617,18 @@
   animation: fade_out 1s ease-in-out;
 }
 
+.fade_in_1 {
+  transform: scale(1);
+  opacity: 1;
+  transition: all 1s;
+}
+
+.fade_out_1 {
+  transform: scale(0);
+  opacity: 0;
+  transition: all 1s;
+}
+
 /* testZOne */
 
 .stars {

@@ -1,19 +1,19 @@
-import { startData, restults } from './gpn_test.js'
-import testData from './gpn_test.js'
-import { starBurst } from './starburns.js'
+import { startData, restults } from './gpn_test.js';
+import testData from './gpn_test.js';
+import { starBurst } from './starburns.js';
 
-const startTestButton = document.querySelector('.start_test_button')
-const testWrap = document.querySelector('.test_wrapp')
-const redCrest = document.createElement('img')
-redCrest.style.position = 'absolute'
-redCrest.classList.add('red_crest')
+const startTestButton = document.querySelector('.start_test_button');
+const testWrap = document.querySelector('.test_wrapp');
+const redCrest = document.createElement('img');
+redCrest.style.position = 'absolute';
+redCrest.classList.add('red_crest');
 
-redCrest.src = 'https://obzor.city/data/images/news_2024/07/gpn_test/nope.png'
-const cardCounter = document.querySelector('.font_counter')
-const imgWrapper = document.querySelector('.img_wrapper')
-const rightColumn = document.querySelector('.right_col')
-const buttonWrapper = document.querySelector('.button_wrapper')
-rightColumn.ontouchstart = (e) => {
+redCrest.src = 'https://obzor.city/data/images/news_2024/07/gpn_test/nope.png';
+const cardCounter = document.querySelector('.font_counter');
+const imgWrapper = document.querySelector('.img_wrapper');
+const rightColumn = document.querySelector('.right_col');
+const buttonWrapper = document.querySelector('.button_wrapper');
+rightColumn.ontouchstart = e => {
   if (
     e.target.classList.value === 'question_placeholder' ||
     e.target.classList.value === 'right_col' ||
@@ -22,28 +22,28 @@ rightColumn.ontouchstart = (e) => {
     e.target.classList.value === 'next_question' ||
     e.target.classList.value === 'start_description'
   ) {
-    console.log('!!!')
-    return false
+    console.log('!!!');
+    return false;
   }
-  console.log(e.target.classList.value)
-}
-const cardDescription = document.querySelector('.card_description')
+  console.log(e.target.classList.value);
+};
+const cardDescription = document.querySelector('.card_description');
 
-const questionText = document.querySelector('.question_text')
-const answerText = document.createElement('div')
+const questionText = document.querySelector('.question_text');
+const answerText = document.createElement('div');
 
-answerText.classList.add('answer_text')
+answerText.classList.add('answer_text');
 
-let previewNode = document.createElement('img')
-previewNode.style.position = 'absolute'
+let previewNode = document.createElement('img');
+previewNode.style.position = 'absolute';
 
-let scaler = document.createElement('div')
-scaler.classList.add('scaler')
+let scaler = document.createElement('div');
+scaler.classList.add('scaler');
 
-const nexQuestionButton = document.querySelector('.next_question')
+const nexQuestionButton = document.querySelector('.next_question');
 
 //Определяем, с чего мы смотрим сайт
-let deviceType = ''
+let deviceType = '';
 
 const testDevice = () => {
   if (
@@ -51,485 +51,501 @@ const testDevice = () => {
       navigator.userAgent
     )
   ) {
-    deviceType = 'mobile'
-  } else deviceType = 'desktop'
-}
+    deviceType = 'mobile';
+  } else deviceType = 'desktop';
+};
 
 //Данные для определения длинного тапа
-let longTap = false
-let timerStarted = false
-let tapTime = 0
+let longTap = false;
+let timerStarted = false;
+let tapTime = 0;
 
 //Делаем таймер
 
-const tapTimer = (event) => {
+const tapTimer = event => {
   const startTimer = setInterval(() => {
     if (!timerStarted) {
-      clearInterval(startTimer)
+      clearInterval(startTimer);
       if (!answerClicked) {
         document
           .querySelectorAll('.answer_text')
-          .forEach((el) =>
+          .forEach(el =>
             el.classList.value.includes('scaling')
               ? el.classList.remove('scaling')
               : console.log('first')
-          )
+          );
       }
     } else if (tapTime < 10) {
       !event.target.classList.value.includes('.scaling')
         ? event.target.classList.add('scaling')
-        : console.log('first')
+        : console.log('first');
 
-      longTap = false
-      tapTime++
-      console.log(tapTime)
+      longTap = false;
+      tapTime++;
+      console.log(tapTime);
     } else {
-      console.log('Long Tap!')
-      clearInterval(startTimer)
-      longTap = true
-      answerClicked = true
-      clickedAnswers(event)
+      console.log('Long Tap!');
+      clearInterval(startTimer);
+      longTap = true;
+      answerClicked = true;
+      clickedAnswers(event);
     }
-  }, 50)
-}
+  }, 50);
+};
 
 // Одеваем человека для каждого отдельного экрана
 const suitUp = (asset, isBase = false) => {
   if (asset) {
-    let wearAsset = document.createElement('img')
-    let elClassName = asset.toString().split('/')
-    elClassName = elClassName[elClassName.length - 1].split('.')[0]
-    wearAsset.classList.add(`${elClassName}`)
-    wearAsset.src = asset
+    let wearAsset = document.createElement('img');
+    let elClassName = asset.toString().split('/');
+    elClassName = elClassName[elClassName.length - 1].split('.')[0];
+    wearAsset.classList.add(`${elClassName}`);
+    wearAsset.src = asset;
     isBase
       ? (wearAsset.style.position = 'relative')
-      : (wearAsset.style.position = 'absolute')
-    imgWrapper.appendChild(wearAsset)
+      : (wearAsset.style.position = 'absolute');
+    imgWrapper.appendChild(wearAsset);
   } else {
-    console.log('Nothing')
+    console.log('Nothing');
   }
-}
+};
 
 //Подчищаем картинки
 const cleaner = () => {
-  let imagesTodDelete = imgWrapper.querySelectorAll('img')
-  imagesTodDelete.forEach((el) => {
+  let imagesTodDelete = imgWrapper.querySelectorAll('img');
+  imagesTodDelete.forEach(el => {
     if (el.src != imagesTodDelete[0].src) {
-      el.remove()
+      el.remove();
     }
-  })
+  });
 
-  imgWrapper.querySelector('img').src = ''
-}
+  imgWrapper.querySelector('img').src = '';
+};
 
-let counter = 0
-let score = 0
-let testFinished = false
-let answerClicked = false
-const funMan = document.createElement('img')
+let counter = 0;
+let score = 0;
+let testFinished = false;
+let answerClicked = false;
+const funMan = document.createElement('img');
 funMan.src =
-  'https://obzor.city/data/images/news_2024/07/gpn_test/naked_man_fun.png'
-const funLady = document.createElement('img')
+  'https://obzor.city/data/images/news_2024/07/gpn_test/naked_man_fun.png';
+const funLady = document.createElement('img');
 funLady.src =
-  'https://obzor.city/data/images/news_2024/07/gpn_test/fun_lady.png'
+  'https://obzor.city/data/images/news_2024/07/gpn_test/fun_lady.png';
 // Рисуем стартовый экран
 const startScreen = () => {
   for (let i in startData.imageSource) {
     i !== 'base'
       ? suitUp(startData.imageSource[i])
-      : suitUp(startData.imageSource[i], true)
+      : suitUp(startData.imageSource[i], true);
   }
 
-  document.querySelector('.font_counter').textContent = startData.testHeader
-  cardDescription.textContent = startData.testDescription
-  cardDescription.classList.add('start_description')
-}
+  document.querySelector('.font_counter').textContent = startData.testHeader;
+  cardDescription.textContent = startData.testDescription;
+  cardDescription.classList.add('start_description');
+};
 
-startTestButton.onclick = (e) => {
-  console.log('Test Started')
+startTestButton.onclick = e => {
+  console.log('Test Started');
 
-  cardCounter.classList.add('text_go_out')
-  cardDescription.classList.add('swap_to_right')
-  startTestButton.classList.add('swap_down')
+  cardCounter.classList.add('text_go_out');
+  cardDescription.classList.add('swap_to_right');
+  startTestButton.classList.add('swap_down');
   setTimeout(() => {
-    cardCounter.classList.remove('text_go_out')
-    cardDescription.classList.remove('swap_to_right')
-    cardCounter.classList.add('text_go_in')
-    cardDescription.classList.add('swap_to_centre')
-    startTestButton.style.display = 'none'
-    cardDescription.style.display = 'flex'
-    buttonWrapper.style.display = 'block'
-    buttonWrapper.classList.add('fade_in')
-    nexQuestionButton.style.display = 'none'
+    cardCounter.classList.remove('text_go_out');
+    cardDescription.classList.remove('swap_to_right');
+    cardCounter.classList.add('text_go_in');
+    cardDescription.classList.add('swap_to_centre');
+    startTestButton.style.display = 'none';
+    cardDescription.style.display = 'flex';
+    buttonWrapper.style.display = 'block';
+    buttonWrapper.classList.add('fade_in');
+    nexQuestionButton.style.display = 'none';
 
-    cleaner()
-    cardDescription.classList.remove('start_description')
-    createPage(counter)
-  }, 1000)
-}
+    cleaner();
+    cardDescription.classList.remove('start_description');
+    createPage(counter);
+  }, 1000);
+};
 
-startTestButton.ontouchstart = (e) => {
-  e.preventDefault()
-  console.log('Test Started from mobile')
+startTestButton.ontouchstart = e => {
+  e.preventDefault();
+  console.log('Test Started from mobile');
 
-  cardCounter.classList.add('text_go_out')
-  cardDescription.classList.add('swap_to_right')
-  startTestButton.classList.add('swap_down')
+  cardCounter.classList.add('text_go_out');
+  cardDescription.classList.add('swap_to_right');
+  startTestButton.classList.add('swap_down');
 
   setTimeout(() => {
-    cardCounter.classList.remove('text_go_out')
-    cardDescription.classList.remove('swap_to_right')
-    cardCounter.classList.add('text_go_in')
-    cardDescription.classList.add('swap_to_centre')
-    startTestButton.style.display = 'none'
-    cardDescription.style.display = 'flex'
-    buttonWrapper.style.display = 'block'
-    buttonWrapper.classList.add('fade_in')
-    nexQuestionButton.style.display = 'none'
+    cardCounter.classList.remove('text_go_out');
+    cardDescription.classList.remove('swap_to_right');
+    cardCounter.classList.add('text_go_in');
+    cardDescription.classList.add('swap_to_centre');
+    startTestButton.style.display = 'none';
+    cardDescription.style.display = 'flex';
+    buttonWrapper.style.display = 'block';
+    buttonWrapper.classList.add('fade_in');
+    nexQuestionButton.style.display = 'none';
 
-    cleaner()
-    cardDescription.classList.remove('start_description')
-    createPage(counter)
-  }, 1000)
-}
+    cleaner();
+    cardDescription.classList.remove('start_description');
+    createPage(counter);
+  }, 1000);
+};
 
-nexQuestionButton.onclick = () => {
+nexQuestionButton.onclick = e => {
+  if (deviceType === 'mobile') {
+    e.preventDefault();
+  }
+
   if (nexQuestionButton.classList.value.includes('enabled')) {
     if (cardDescription.classList.value.includes('correct_card_description')) {
-      cardDescription.classList.remove('correct_card_description')
+      cardDescription.classList.remove('correct_card_description');
     }
     if (
       cardDescription.classList.value.includes('incorrect_card_description')
     ) {
-      cardDescription.classList.remove('incorrect_card_description')
+      cardDescription.classList.remove('incorrect_card_description');
     }
-    nexQuestionButton.classList.toggle('enabled')
-    console.log(cardCounter)
+    nexQuestionButton.classList.toggle('enabled');
+    nexQuestionButton.classList.add('fade_out_1');
+    if (nexQuestionButton.classList.value.includes('fade_in')) {
+      nexQuestionButton.classList.remove('fade_in');
+    }
 
-    goToNextQuestion()
+    goToNextQuestion();
   } else {
-    console.log('foo')
+    console.log('foo');
   }
-}
+};
 
-const dataAnal = (data) => {
+const dataAnal = data => {
   const found = testData[counter].answers.find(
-    (el) => el.answerText === data.textContent
-  )
-  cardDescription.classList.add('text_go_out')
+    el => el.answerText === data.textContent
+  );
+  cardDescription.classList.add('text_go_out');
 
   setTimeout(() => {
-    cardDescription.classList.remove('text_go_out')
-    cardDescription.innerHTML = found.aftershok
-    cardDescription.classList.add('text_go_in')
-  }, 1000)
+    cardDescription.classList.remove('text_go_out');
+    cardDescription.innerHTML = found.aftershok;
+    cardDescription.classList.add('text_go_in');
+  }, 1000);
 
-  suitUp(found.questionAsset)
-  const imgArray = imgWrapper.querySelectorAll('img')
+  suitUp(found.questionAsset);
+  const imgArray = imgWrapper.querySelectorAll('img');
   if (found.isCorrect) {
-    score++
+    score++;
 
-    document.querySelector('.clicked').style.backgroundColor = 'green'
+    document.querySelector('.clicked').style.backgroundColor = 'green';
     deviceType === 'desktop'
       ? imgWrapper.classList.add(found.previewFocus)
-      : imgWrapper.classList.add(found.previewFocus + '_mobile')
+      : imgWrapper.classList.add(found.previewFocus + '_mobile');
 
-    imgArray.forEach((el) => {
+    imgArray.forEach(el => {
       if (
         el.src === found.questionAsset &&
         el.classList.value.includes('to_scale')
       ) {
-        el.classList.add('bounce')
+        el.classList.add('bounce');
         setTimeout(() => {
-          el.classList.add('drop_shadow')
-        }, 500)
+          el.classList.add('drop_shadow');
+        }, 500);
       }
       if (
         el.src === found.questionAsset &&
         !el.classList.value.includes('to_scale')
       ) {
-        el.remove()
+        el.remove();
       }
-    })
-    starBurst()
+    });
+    starBurst();
 
-    data.style.filter = 'drop-shadow(5px -5px 0px gold);'
+    data.style.filter = 'drop-shadow(5px -5px 0px gold);';
     found.funLady
       ? imgWrapper.querySelectorAll('img')[1].replaceWith(funLady)
-      : imgWrapper.querySelectorAll('img')[1].replaceWith(funMan)
+      : imgWrapper.querySelectorAll('img')[1].replaceWith(funMan);
   } else {
-    document.querySelector('.clicked').style.backgroundColor = 'red'
-    imgArray.forEach((el) => {
+    document.querySelector('.clicked').style.backgroundColor = 'red';
+    imgArray.forEach(el => {
       if (el.classList.value.includes('to_scale')) {
-        el.remove()
+        el.remove();
       }
       if (
         el.src === found.questionAsset &&
         !el.classList.value.includes('to_scale')
       ) {
-        console.log('Добавим красный крест')
-        imgWrapper.appendChild(redCrest)
+        console.log('Добавим красный крест');
+        imgWrapper.appendChild(redCrest);
       }
-    })
+    });
   }
 
-  nexQuestionButton.style.display = 'flex'
-}
+  nexQuestionButton.style.display = 'flex';
+  if (nexQuestionButton.classList.value.includes('fade_out_1')) {
+    nexQuestionButton.classList.remove('fade_out_1');
+    nexQuestionButton.classList.add('fade_in');
+  }
+};
 
 //TEST - делаем красоту для ПК
 
-const hoverAnalDesktop = (event) => {
+const hoverAnalDesktop = event => {
   if (!answerClicked) {
     const found = testData[counter].answers.find(
-      (el) => el.answerText === event.target.textContent
-    )
-    previewNode.classList.add('to_scale')
-    previewNode.src = found.questionAsset
+      el => el.answerText === event.target.textContent
+    );
+    previewNode.classList.add('to_scale');
+    previewNode.src = found.questionAsset;
     if (
-      testData[counter].answers.find((el) => el.previewFocus).previewFocus ===
+      testData[counter].answers.find(el => el.previewFocus).previewFocus ===
       'to_shoes'
     ) {
       deviceType === 'desktop'
         ? imgWrapper.classList.add('to_shoes')
-        : imgWrapper.classList.add('to_shoes_mobile')
+        : imgWrapper.classList.add('to_shoes_mobile');
     }
     if (previewNode.classList.value.includes('drop_shadow')) {
-      previewNode.classList.remove('drop_shadow')
+      previewNode.classList.remove('drop_shadow');
     }
-    imgWrapper.appendChild(previewNode)
+    imgWrapper.appendChild(previewNode);
   }
-}
+};
 
 //TEST - делаем красоту для мобил
 
-const hoverAnalMobile = (event) => {
-  event.preventDefault()
-  const answersArr = document.querySelectorAll('.answer_text')
+const hoverAnalMobile = event => {
+  event.preventDefault();
+  const answersArr = document.querySelectorAll('.answer_text');
 
-  answersArr.forEach((el) => {
+  answersArr.forEach(el => {
     if (el.classList.value.includes('clicked')) {
-      console.log('TAPED')
-      answerClicked = true
+      console.log('TAPED');
+      answerClicked = true;
     }
-  })
+  });
 
   if (!answerClicked) {
     document
       .querySelectorAll('.answer_text')
-      .forEach((el) => el.classList.remove('answer_hovered'))
+      .forEach(el => el.classList.remove('answer_hovered'));
 
-    event.target.classList.add('answer_hovered')
+    event.target.classList.add('answer_hovered');
     const found = testData[counter].answers.find(
-      (el) => el.answerText === event.target.textContent
-    )
-    previewNode.src = found.questionAsset
-    previewNode.classList.add('to_scale')
+      el => el.answerText === event.target.textContent
+    );
+    previewNode.src = found.questionAsset;
+    previewNode.classList.add('to_scale');
     if (
-      testData[counter].answers.find((el) => el.previewFocus).previewFocus ===
+      testData[counter].answers.find(el => el.previewFocus).previewFocus ===
       'to_shoes'
     ) {
       deviceType === 'desktop'
         ? imgWrapper.classList.add('to_shoes')
-        : imgWrapper.classList.add('to_shoes_mobile')
+        : imgWrapper.classList.add('to_shoes_mobile');
 
-      cardCounter.classList.add('hidden')
+      cardCounter.classList.add('hidden');
     }
     if (previewNode.classList.value.includes('drop_shadow')) {
-      previewNode.classList.remove('drop_shadow')
+      previewNode.classList.remove('drop_shadow');
     }
-    imgWrapper.appendChild(previewNode)
+    imgWrapper.appendChild(previewNode);
 
-    timerStarted = true
-    tapTimer(event)
+    timerStarted = true;
+    tapTimer(event);
   }
-}
+};
 
-const touchMoveFunc = (e) => {
-  timerStarted = false
-  tapTime = 0
-}
+const touchMoveFunc = e => {
+  timerStarted = false;
+  tapTime = 0;
+};
 
-const touchEndFunc = (e) => {
-  e.preventDefault()
-  timerStarted = false
-  tapTime = 0
-}
+const touchEndFunc = e => {
+  e.preventDefault();
+  timerStarted = false;
+  tapTime = 0;
+};
 
-const clickedAnswers = (e) => {
-  e.target.classList.add('clicked')
-  dataAnal(e.target)
-  cardCounter.classList.remove('text_go_in')
-  cardDescription.classList.remove('swap_to_centre')
-  buttonWrapper.classList.remove('fade_in')
-  let answersList = document.querySelectorAll('.answer_text')
-  answersList.forEach((el) => {
+const clickedAnswers = e => {
+  e.target.classList.add('clicked');
+  dataAnal(e.target);
+  cardCounter.classList.remove('text_go_in');
+  cardDescription.classList.remove('swap_to_centre');
+  buttonWrapper.classList.remove('fade_in');
+  nexQuestionButton.classList.add('fade_in');
+  let answersList = document.querySelectorAll('.answer_text');
+  answersList.forEach(el => {
     if (!el.classList.value.includes('clicked')) {
-      el.classList.remove('answer_text')
-      el.classList.add('inactive')
+      el.classList.remove('answer_text');
+      el.classList.add('inactive');
     }
     el.onclick = () => {
-      console.log('foo')
-    }
-  })
+      console.log('foo');
+    };
+  });
 
   setTimeout(() => {
-    nexQuestionButton.classList.toggle('enabled')
-  }, 1000)
-}
+    nexQuestionButton.classList.toggle('enabled');
+  }, 1000);
+};
 
 const goToNextQuestion = () => {
-  testWrap.scrollIntoView({ behavior: 'smooth' })
+  testWrap.scrollIntoView({ behavior: 'smooth' });
 
-  const inactiveElements = document.querySelectorAll('.inactive')
+  const inactiveElements = document.querySelectorAll('.inactive');
   if (cardCounter.classList.value.includes('hidden')) {
-    cardCounter.classList.remove('hidden')
+    cardCounter.classList.remove('hidden');
   }
 
-  cardCounter.classList.add('text_go_out')
-  cardDescription.classList.remove('text_go_in')
-  cardDescription.classList.add('swap_to_right')
-  buttonWrapper.classList.remove('fade_in')
-  buttonWrapper.classList.add('fade_out')
-  redCrest.classList.remove('red_crest')
-  redCrest.classList.add('fade_out')
+  cardCounter.classList.add('text_go_out');
+  cardDescription.classList.remove('text_go_in');
+  cardDescription.classList.add('swap_to_right');
+  buttonWrapper.classList.remove('fade_in');
+  buttonWrapper.classList.add('fade_out');
+  redCrest.classList.remove('red_crest');
+  redCrest.classList.add('fade_out');
 
-  console.log(counter)
+  console.log(counter);
   counter + 3 <= testData.length
     ? (nexQuestionButton.textContent = `Следующий вопрос`)
-    : (nexQuestionButton.textContent = 'Узнать результат')
+    : setTimeout(() => {
+        nexQuestionButton.textContent = 'Узнать результат';
+      }, 1000);
 
   setTimeout(() => {
-    imgWrapper.querySelector('.to_scale')?.classList.remove('bounce')
-    imgWrapper.querySelector('.to_scale')?.remove()
+    imgWrapper.querySelector('.to_scale')?.classList.remove('bounce');
+    imgWrapper.querySelector('.to_scale')?.remove();
     imgWrapper.classList.remove('to_head') ||
       imgWrapper.classList.remove('to_shoes') ||
       imgWrapper.classList.remove('to_head_mobile') ||
-      imgWrapper.classList.remove('to_shoes_mobile')
-    cardCounter.classList.add('text_go_in')
-    cardCounter.classList.remove('text_go_out')
-    cardDescription.classList.remove('swap_to_right')
-    buttonWrapper.classList.remove('fade_out')
-    document.querySelector('.answer_text').remove()
-    buttonWrapper.classList.add('fade_in')
-    inactiveElements.forEach((el) => el.remove())
-    nexQuestionButton.style.display = 'none'
+      imgWrapper.classList.remove('to_shoes_mobile');
+    cardCounter.classList.add('text_go_in');
+    cardCounter.classList.remove('text_go_out');
+    cardDescription.classList.remove('swap_to_right');
+    buttonWrapper.classList.remove('fade_out');
+    document.querySelector('.answer_text').remove();
+    buttonWrapper.classList.add('fade_in');
+    inactiveElements.forEach(el => el.remove());
+    nexQuestionButton.style.display = 'none';
 
-    cleaner()
+    cleaner();
 
-    createPage((counter += 1))
-  }, 1000)
-}
+    createPage((counter += 1));
+  }, 1000);
+};
 
-const createPage = (id) => {
+const createPage = id => {
   if (id < testData.length) {
-    answerClicked = false
-    cardDescription.classList.add('swap_to_centre')
-    redCrest.classList.remove('fade_out')
-    redCrest.classList.add('red_crest')
+    answerClicked = false;
+    cardDescription.classList.add('swap_to_centre');
+    redCrest.classList.remove('fade_out');
+    redCrest.classList.add('red_crest');
 
     // imgWrapper.querySelector('img').src = testData[id].imageSource.base
     for (let i in testData[id].imageSource) {
       if (testData[id].imageSource[i].length > 0) {
         i == 'base'
           ? suitUp(testData[id].imageSource[i], true)
-          : suitUp(testData[id].imageSource[i])
+          : suitUp(testData[id].imageSource[i]);
       }
     }
 
-    cardDescription.textContent = testData[id].cardDescription
+    cardDescription.textContent = testData[id].cardDescription;
 
-    questionText.textContent = testData[id].questionText
-    cardCounter.textContent = `Вопрос №${counter + 1}`
+    questionText.textContent = testData[id].questionText;
+    cardCounter.textContent = `Вопрос №${counter + 1}`;
 
     for (let i in testData[id].answers) {
-      let newAnswer = answerText.cloneNode(true)
-      newAnswer.textContent = testData[id].answers[i].answerText
-      newAnswer.appendChild(scaler)
-      questionText.parentNode.appendChild(newAnswer)
+      let newAnswer = answerText.cloneNode(true);
+      newAnswer.textContent = testData[id].answers[i].answerText;
+      newAnswer.appendChild(scaler);
+      questionText.parentNode.appendChild(newAnswer);
 
       if (deviceType === 'desktop') {
-        newAnswer.addEventListener('mouseover', (e) => hoverAnalDesktop(e))
+        newAnswer.addEventListener('mouseover', e => hoverAnalDesktop(e));
 
-        newAnswer.onclick = (e) => {
-          clickedAnswers(e)
-          answerClicked = true
-        }
+        newAnswer.onclick = e => {
+          clickedAnswers(e);
+          answerClicked = true;
+        };
       } else {
-        console.log('its mobile')
-        newAnswer.addEventListener('touchstart', (e) => hoverAnalMobile(e))
+        console.log('its mobile');
+        newAnswer.addEventListener('touchstart', e => hoverAnalMobile(e));
         // newAnswer.addEventListener('touchmove', (e) => touchMoveFunc(e))
-        newAnswer.addEventListener('touchend', (e) => touchEndFunc(e))
-        newAnswer.addEventListener('touchcancel', (e) => touchEndFunc(e))
+        newAnswer.addEventListener('touchend', e => touchEndFunc(e));
+        newAnswer.addEventListener('touchcancel', e => touchEndFunc(e));
       }
     }
   } else {
-    document.querySelector('.button_wrapper').style.display = 'none'
+    document.querySelector('.button_wrapper').style.display = 'none';
 
     if (score / testData.length >= 0.7 && score / testData.length <= 1) {
-      console.log('ZBS', score / testData.length)
-      const foundResult = restults.find((el) => el.resultValue === 'good boy')
-      imgWrapper.querySelector('img').src = foundResult.resultImage
-      cardCounter.textContent = foundResult.resulHeader
-      cardDescription.textContent = foundResult.resultDescription
-      cardDescription.classList.add('fade_in')
+      console.log('ZBS', score / testData.length);
+      const foundResult = restults.find(el => el.resultValue === 'good boy');
+      imgWrapper.querySelector('img').src = foundResult.resultImage;
+      cardCounter.textContent = foundResult.resulHeader;
+      cardDescription.textContent = foundResult.resultDescription;
+      cardDescription.classList.add('fade_in');
     } else if (
       score / testData.length >= 0.3 &&
       score / testData.length < 0.7
     ) {
-      console.log('NORM', score / testData.length)
-      const foundResult = restults.find((el) => el.resultValue === 'middle boy')
-      imgWrapper.querySelector('img').src = foundResult.resultImage
-      cardCounter.textContent = foundResult.resulHeader
-      cardDescription.textContent = foundResult.resultDescription
-      cardDescription.classList.add('fade_in')
+      console.log('NORM', score / testData.length);
+      const foundResult = restults.find(el => el.resultValue === 'middle boy');
+      imgWrapper.querySelector('img').src = foundResult.resultImage;
+      cardCounter.textContent = foundResult.resulHeader;
+      cardDescription.textContent = foundResult.resultDescription;
+      cardDescription.classList.add('fade_in');
     } else {
-      console.log('BAD', score / testData.length)
-      const foundResult = restults.find((el) => el.resultValue === 'bad boy')
-      imgWrapper.querySelector('img').src = foundResult.resultImage
-      cardCounter.textContent = foundResult.resulHeader
-      cardDescription.textContent = foundResult.resultDescription
-      cardDescription.classList.add('fade_in')
+      console.log('BAD', score / testData.length);
+      const foundResult = restults.find(el => el.resultValue === 'bad boy');
+      imgWrapper.querySelector('img').src = foundResult.resultImage;
+      cardCounter.textContent = foundResult.resulHeader;
+      cardDescription.textContent = foundResult.resultDescription;
+      cardDescription.classList.add('fade_in');
     }
-    testFinished = true
-    nexQuestionButton.classList.add('last_button')
-    nexQuestionButton.textContent = 'Попробуем еще разок?'
+    testFinished = true;
+    nexQuestionButton.classList.add('last_button');
+    nexQuestionButton.style.display = 'flex';
+    nexQuestionButton.classList.remove('fade_out_1');
+    nexQuestionButton.textContent = 'Попробуем еще разок?';
     nexQuestionButton.onclick = () => {
-      location.reload()
-    }
+      location.reload();
+    };
   }
-}
+};
 
-const fontDecor = (decorationSpeed) => {
-  nexQuestionButton.textContent = ''
-  const nArr = Array(4).fill(' ')
+const fontDecor = decorationSpeed => {
+  nexQuestionButton.textContent = '';
+  const nArr = Array(4).fill(' ');
 
-  let quotCounter = 0
-  let direction = 'forward'
+  let quotCounter = 0;
+  let direction = 'forward';
   let minInt = setInterval(() => {
     if (nexQuestionButton.classList.value.includes('enabled')) {
       if (quotCounter < 4 && direction === 'forward') {
-        nArr[quotCounter] = '>'
-        quotCounter++
+        nArr[quotCounter] = '>';
+        quotCounter++;
       } else if (quotCounter < 4 && direction === 'backward') {
-        nArr[quotCounter] = ' '
-        quotCounter++
+        nArr[quotCounter] = ' ';
+        quotCounter++;
       } else {
         direction === 'forward'
           ? (direction = 'backward')
-          : (direction = 'forward')
-        quotCounter = 0
+          : (direction = 'forward');
+        quotCounter = 0;
       }
 
-      nexQuestionButton.textContent = nArr.join('')
+      nexQuestionButton.textContent = nArr.join('');
     } else {
-      clearInterval(minInt)
+      clearInterval(minInt);
     }
-  }, decorationSpeed)
-  minInt
-}
+  }, decorationSpeed);
+  minInt;
+};
 
 //Launch zone
-testDevice()
-console.log(deviceType)
+testDevice();
+console.log(deviceType);
 
-startScreen()
+startScreen();
