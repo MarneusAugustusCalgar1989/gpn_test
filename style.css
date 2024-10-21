@@ -37,6 +37,7 @@
   font-size: 120%; /*Тест резиновой верстки*/
   color: var(--accent-color);
   text-align: center;
+  line-height: 1.5rem;
 }
 
 .test_header {
@@ -387,7 +388,13 @@
     min-height: fit-content;
     padding: 0;
     margin: 1rem auto;
-    font-size: 1rem;
+    font-size: 0.8rem;
+    line-height: 0.9rem;
+  }
+
+  .card_description p {
+    line-height: 0.9rem;
+    font-size: 0.8rem;
   }
 
   .card_description p {
@@ -463,9 +470,17 @@
   .to_shoes_mobile {
     transform: scale(1.5) translateY(-3.7rem);
   }
-  .card_description {
+  .card_description p {
     height: min-content;
     margin: 0.7rem;
+    font-size: 0.7rem;
+    line-height: 0.8rem;
+  }
+  .question_text {
+    font-size: 0.8rem;
+  }
+
+  .answer_text {
     font-size: 0.7rem;
     line-height: 0.8rem;
   }
