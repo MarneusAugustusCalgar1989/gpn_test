@@ -160,7 +160,7 @@ startTestButton.onclick = (e) => {
     cardDescription.style.display = 'flex'
     buttonWrapper.style.display = 'block'
     buttonWrapper.classList.add('fade_in')
-    nexQuestionButton.style.display = 'flex'
+    nexQuestionButton.style.display = 'none'
 
     cleaner()
     cardDescription.classList.remove('start_description')
@@ -185,7 +185,7 @@ startTestButton.ontouchstart = (e) => {
     cardDescription.style.display = 'flex'
     buttonWrapper.style.display = 'block'
     buttonWrapper.classList.add('fade_in')
-    nexQuestionButton.style.display = 'flex'
+    nexQuestionButton.style.display = 'none'
 
     cleaner()
     cardDescription.classList.remove('start_description')
@@ -204,7 +204,7 @@ nexQuestionButton.onclick = () => {
       cardDescription.classList.remove('incorrect_card_description')
     }
     nexQuestionButton.classList.toggle('enabled')
-    nexQuestionButton.textContent = '>>>>'
+    console.log(cardCounter)
 
     goToNextQuestion()
   } else {
@@ -272,6 +272,8 @@ const dataAnal = (data) => {
       }
     })
   }
+
+  nexQuestionButton.style.display = 'flex'
 }
 
 //TEST - делаем красоту для ПК
@@ -371,7 +373,6 @@ const clickedAnswers = (e) => {
   })
 
   setTimeout(() => {
-    fontDecor(150)
     nexQuestionButton.classList.toggle('enabled')
   }, 1000)
 }
@@ -392,6 +393,11 @@ const goToNextQuestion = () => {
   redCrest.classList.remove('red_crest')
   redCrest.classList.add('fade_out')
 
+  console.log(counter)
+  counter + 3 <= testData.length
+    ? (nexQuestionButton.textContent = `Следующий вопрос`)
+    : (nexQuestionButton.textContent = 'Узнать результат')
+
   setTimeout(() => {
     imgWrapper.querySelector('.to_scale')?.classList.remove('bounce')
     imgWrapper.querySelector('.to_scale')?.remove()
@@ -406,6 +412,7 @@ const goToNextQuestion = () => {
     document.querySelector('.answer_text').remove()
     buttonWrapper.classList.add('fade_in')
     inactiveElements.forEach((el) => el.remove())
+    nexQuestionButton.style.display = 'none'
 
     cleaner()
 

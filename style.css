@@ -390,6 +390,10 @@
     font-size: 1rem;
   }
 
+  .card_description p {
+    line-height: 0.9rem;
+  }
+
   .start_description {
     margin: 0, 0, 0, 1rem;
 
