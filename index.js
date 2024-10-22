@@ -8,6 +8,8 @@ const redCrest = document.createElement('img')
 redCrest.style.position = 'absolute'
 redCrest.classList.add('red_crest')
 
+let prevValue = ''
+
 redCrest.src = 'https://obzor.city/data/images/news_2024/07/gpn_test/nope.png'
 const cardCounter = document.querySelector('.font_counter')
 const imgWrapper = document.querySelector('.img_wrapper')
@@ -25,12 +27,12 @@ rightColumn.ontouchstart = (e) => {
     console.log('!!!')
     return false
   }
-  console.log(e.target.classList.value)
 }
 const cardDescription = document.querySelector('.card_description')
 
 const questionText = document.querySelector('.question_text')
-const answerText = document.createElement('div')
+// const answerText = document.createElement('div')
+const answerText = document.createElement('button')
 
 answerText.classList.add('answer_text')
 
@@ -53,44 +55,6 @@ const testDevice = () => {
   ) {
     deviceType = 'mobile'
   } else deviceType = 'desktop'
-}
-
-//Данные для определения длинного тапа
-let longTap = false
-let timerStarted = false
-let tapTime = 0
-
-//Делаем таймер
-
-const tapTimer = (event) => {
-  const startTimer = setInterval(() => {
-    if (!timerStarted) {
-      clearInterval(startTimer)
-      if (!answerClicked) {
-        document
-          .querySelectorAll('.answer_text')
-          .forEach((el) =>
-            el.classList.value.includes('scaling')
-              ? el.classList.remove('scaling')
-              : console.log('first')
-          )
-      }
-    } else if (tapTime < 10) {
-      !event.target.classList.value.includes('.scaling')
-        ? event.target.classList.add('scaling')
-        : console.log('first')
-
-      longTap = false
-      tapTime++
-      console.log(tapTime)
-    } else {
-      console.log('Long Tap!')
-      clearInterval(startTimer)
-      longTap = true
-      answerClicked = true
-      clickedAnswers(event)
-    }
-  }, 50)
 }
 
 // Одеваем человека для каждого отдельного экрана
@@ -314,27 +278,30 @@ const hoverAnalDesktop = (event) => {
 //TEST - делаем красоту для мобил
 
 const hoverAnalMobile = (event) => {
-  event.preventDefault()
-  const answersArr = document.querySelectorAll('.answer_text')
+  if (
+    event.target.classList.value.includes('answer_hovered') &&
+    !answerClicked
+  ) {
+    answerClicked = true
+    event.target.textContent = prevValue
 
-  answersArr.forEach((el) => {
-    if (el.classList.value.includes('clicked')) {
-      console.log('TAPED')
-      answerClicked = true
-    }
-  })
+    clickedAnswers(event)
+  } else if (!answerClicked) {
+    prevValue = event.target.textContent
+    const asnwerList = document.querySelectorAll('.answer_text')
+    asnwerList.forEach((el) => {
+      if (el.classList.value.includes('answer_hovered')) {
+        el.classList.remove('answer_hovered')
+        el.classList.remove('scaling')
+        el.textContent = prevValue
+      }
+    })
 
-  if (!answerClicked) {
-    document
-      .querySelectorAll('.answer_text')
-      .forEach((el) => el.classList.remove('answer_hovered'))
-
-    event.target.classList.add('answer_hovered')
     const found = testData[counter].answers.find(
       (el) => el.answerText === event.target.textContent
     )
-    previewNode.src = found.questionAsset
     previewNode.classList.add('to_scale')
+    previewNode.src = found.questionAsset
     if (
       testData[counter].answers.find((el) => el.previewFocus).previewFocus ===
       'to_shoes'
@@ -342,28 +309,16 @@ const hoverAnalMobile = (event) => {
       deviceType === 'desktop'
         ? imgWrapper.classList.add('to_shoes')
         : imgWrapper.classList.add('to_shoes_mobile')
-
-      cardCounter.classList.add('hidden')
     }
     if (previewNode.classList.value.includes('drop_shadow')) {
       previewNode.classList.remove('drop_shadow')
     }
     imgWrapper.appendChild(previewNode)
-
-    timerStarted = true
-    tapTimer(event)
   }
-}
 
-const touchMoveFunc = (e) => {
-  timerStarted = false
-  tapTime = 0
-}
-
-const touchEndFunc = (e) => {
-  e.preventDefault()
-  timerStarted = false
-  tapTime = 0
+  event.target.textContent = event.target.textContent + ', уверены?'
+  event.target.classList.add('answer_hovered')
+  event.target.classList.add('scaling')
 }
 
 const clickedAnswers = (e) => {
@@ -376,8 +331,8 @@ const clickedAnswers = (e) => {
   let answersList = document.querySelectorAll('.answer_text')
   answersList.forEach((el) => {
     if (!el.classList.value.includes('clicked')) {
-      el.classList.remove('answer_text')
       el.classList.add('inactive')
+      el.style.pointerEvents = 'none'
     }
     el.onclick = () => {
       console.log('foo')
@@ -386,13 +341,15 @@ const clickedAnswers = (e) => {
 
   setTimeout(() => {
     nexQuestionButton.classList.toggle('enabled')
-  }, 1000)
+  }, 200)
 }
 
 const goToNextQuestion = () => {
   testWrap.scrollIntoView({ behavior: 'smooth' })
 
-  const inactiveElements = document.querySelectorAll('.inactive')
+  // const inactiveElements = document.querySelectorAll('.inactive')
+  const inactiveElements = document.querySelectorAll('.answer_text')
+
   if (cardCounter.classList.value.includes('hidden')) {
     cardCounter.classList.remove('hidden')
   }
@@ -472,8 +429,6 @@ const createPage = (id) => {
         console.log('its mobile')
         newAnswer.addEventListener('touchstart', (e) => hoverAnalMobile(e))
         // newAnswer.addEventListener('touchmove', (e) => touchMoveFunc(e))
-        newAnswer.addEventListener('touchend', (e) => touchEndFunc(e))
-        newAnswer.addEventListener('touchcancel', (e) => touchEndFunc(e))
       }
     }
   } else {

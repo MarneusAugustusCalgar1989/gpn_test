@@ -5,6 +5,11 @@
   --accent-color: #ff9527;
 }
 
+button {
+  margin: 0;
+  padding: 0;
+}
+
 /* body {
   width: 100%;
   margin: 0;
@@ -246,7 +251,7 @@
   &:hover {
     background-color: var(--main-bg-color);
     color: var(--accent-color);
-    font-weight: bolder;
+    /* font-weight: bolder; */
   }
 }
 
@@ -261,7 +266,7 @@
 
 .answer_hovered {
   background-color: var(--main-bg-color);
-  color: var(--second-bg-color);
+  color: var(--accent-color);
 }
 
 .scaling {
@@ -302,11 +307,7 @@
 }
 
 .clicked {
-  background-color: blue;
-  color: white;
-  &:hover {
-    background-color: none;
-  }
+  color: var(--accent-color);
 }
 
 .next_question {
@@ -314,7 +315,7 @@
   width: 50%;
   min-height: 0.8rem;
   height: 1rem;
-  padding: 1rem;
+  padding: 1.1rem;
 
   /* border: 1px solid pink; */
   background-color: var(--main-bg-color);
