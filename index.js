@@ -8,26 +8,12 @@ const redCrest = document.createElement('img')
 redCrest.style.position = 'absolute'
 redCrest.classList.add('red_crest')
 
-let prevValue = ''
-
 redCrest.src = 'https://obzor.city/data/images/news_2024/07/gpn_test/nope.png'
 const cardCounter = document.querySelector('.font_counter')
 const imgWrapper = document.querySelector('.img_wrapper')
 const rightColumn = document.querySelector('.right_col')
 const buttonWrapper = document.querySelector('.button_wrapper')
-rightColumn.ontouchstart = (e) => {
-  if (
-    e.target.classList.value === 'question_placeholder' ||
-    e.target.classList.value === 'right_col' ||
-    e.target.classList.value === 'card_description' ||
-    e.target.classList.value === 'question_text' ||
-    e.target.classList.value === 'next_question' ||
-    e.target.classList.value === 'start_description'
-  ) {
-    console.log('!!!')
-    return false
-  }
-}
+
 const cardDescription = document.querySelector('.card_description')
 
 const questionText = document.querySelector('.question_text')
@@ -210,6 +196,8 @@ const dataAnal = (data) => {
         el.src === found.questionAsset &&
         el.classList.value.includes('to_scale')
       ) {
+        console.log('AAAAAAA!!!!')
+
         el.classList.add('bounce')
         setTimeout(() => {
           el.classList.add('drop_shadow')
@@ -283,17 +271,16 @@ const hoverAnalMobile = (event) => {
     !answerClicked
   ) {
     answerClicked = true
-    event.target.textContent = prevValue
+    event.target.textContent = event.target.textContent.split(', уверены?')[0]
 
     clickedAnswers(event)
   } else if (!answerClicked) {
-    prevValue = event.target.textContent
     const asnwerList = document.querySelectorAll('.answer_text')
     asnwerList.forEach((el) => {
       if (el.classList.value.includes('answer_hovered')) {
         el.classList.remove('answer_hovered')
         el.classList.remove('scaling')
-        el.textContent = prevValue
+        el.textContent = el.textContent.split(', уверены?')[0]
       }
     })
 
@@ -314,11 +301,10 @@ const hoverAnalMobile = (event) => {
       previewNode.classList.remove('drop_shadow')
     }
     imgWrapper.appendChild(previewNode)
+    event.target.textContent = event.target.textContent + ', уверены?'
+    event.target.classList.add('answer_hovered')
+    event.target.classList.add('scaling')
   }
-
-  event.target.textContent = event.target.textContent + ', уверены?'
-  event.target.classList.add('answer_hovered')
-  event.target.classList.add('scaling')
 }
 
 const clickedAnswers = (e) => {
@@ -501,6 +487,4 @@ const fontDecor = (decorationSpeed) => {
 
 //Launch zone
 testDevice()
-console.log(deviceType)
-console.log('first')
 startScreen()
